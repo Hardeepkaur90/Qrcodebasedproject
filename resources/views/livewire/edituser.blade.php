@@ -2,7 +2,7 @@
     <div class="card-body">
         
     
-        <form>
+        <form enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control border border-2 p-2" wire:model="name" required>
@@ -25,11 +25,21 @@
             </div>
             @error('location') <span class="text-danger">{{ $message }}</span> @enderror
 
-        
-            <!-- <div class="input-group input-group-outline mb-3">
-              <input type="file" class="form-control" wire:model="profile" required>
-            </div> -->
-         
+            <div class="mb-3">
+                <label class="form-label">Status</label>
+               
+                <input type="text" class="form-control border border-2 p-2" wire:model="status" required>
+
+                <select wire:model="status" class="form-control">
+                   <option value="" selected>Change Status</option>
+              
+                    <option value="Active">Active</option>
+                    <option value="Passive">Passive</option>
+                </select>
+
+            </div>
+            @error('location') <span class="text-danger">{{ $message }}</span> @enderror
+          
 
                     <div class="mb-3">
                 <!-- <label class="form-label">Password</label> -->

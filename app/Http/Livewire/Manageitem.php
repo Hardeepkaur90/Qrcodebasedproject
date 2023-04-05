@@ -13,7 +13,7 @@ class Manageitem extends Component
 
     public function render()
     {
-        $items =Items::where('vendor_id',Auth()->user()->id)->paginate(2);
+        $items =Items::where('vendor_id',Auth()->user()->id)->paginate(6);
         return view('livewire.manageitem',compact('items'));
     }
     public function deleteT($id){

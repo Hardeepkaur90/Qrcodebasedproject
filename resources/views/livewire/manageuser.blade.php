@@ -3,6 +3,8 @@
 <div class=" me-3 my-3 text-end">
         <a class="btn bg-gradient-dark mb-0" href="adduser"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add User
         </a>
+
+ 
     </div>
                             <div class="table-responsive p-0">
                                 <table class="table align-items-center mb-0">
@@ -26,6 +28,9 @@
                                                 <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Address</th>
+                                                <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Status</th>
                                                 <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
@@ -62,6 +67,16 @@
                                             </td>
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0">{{$r->location}}</p>
+
+                                            </td>
+
+                                            <td>
+                                                @if($r->status == 1)
+                                                <p class="text-xs font-weight-bold mb-0">Active</p>
+                                                @else
+                                                <p class="text-xs font-weight-bold mb-0">Passive</p>
+                                                @endif
+                                                
 
                                             </td>
                                             <!-- <td class="align-middle text-center text-sm">

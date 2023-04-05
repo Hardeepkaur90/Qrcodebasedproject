@@ -11,7 +11,7 @@
         <main class="main-content  mt-0">
             <div class="page-header page-header-bg align-items-start min-vh-100">
                     <span class="mask bg-gradient-dark opacity-6"></span>
-            {{ $slot }}
+                    {{ $slot }}
             <x-footers.guest></x-footers.guest>
              </div>
         </main>
@@ -40,7 +40,7 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <x-navbars.navs.auth></x-navbars.navs.auth>
 
-        {{ $slot }}
+        <div class="mheight-500">{{ $slot }}</div>
 
         <x-footers.auth></x-footers.auth>
     </main>

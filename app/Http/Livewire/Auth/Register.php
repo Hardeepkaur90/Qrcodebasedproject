@@ -11,13 +11,17 @@ class Register extends Component
     public $name ='';
     public $email = '';
     public $password = '';
-    public $role =1;
+    public $role =4;
+    public $profile="";
+    public $status=0;
 
     protected $rules=[
     'name' => 'required|min:3',
     'email' => 'required|email|unique:users,email',
     'password' => 'required|min:5',
-     'role' =>'required'
+    'role' =>'required',
+    'status'=>'required',
+    'profile'=>'required'
 ];
 
 

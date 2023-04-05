@@ -1,4 +1,4 @@
-<div class="container-fluid px-2 px-md-4">
+<div class="container-fluid px-2 px-md-4 container-test">
     <div class="page-header min-height-300 border-radius-xl mt-4"
         style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
         <span class="mask  bg-gradient-primary  opacity-6"></span>
@@ -7,6 +7,7 @@
         <div class="row gx-4 mb-2">
             <div class="col-auto">
                 <div class="avatar avatar-xl position-relative">
+             
                     <img src="{{ asset('assets') }}/img/bruce-mars.jpg" alt="profile_image"
                         class="w-100 border-radius-lg shadow-sm">
                 </div>
@@ -80,7 +81,7 @@
                     </div>
                 </div>
                 @endif
-                <form wire:submit.prevent='update'>
+                <form wire:submit.prevent='update' enctype="multipart/form-data">
                     <div class="row">
 
                         <div class="mb-3 col-md-6">
@@ -118,6 +119,15 @@
                             <p class='text-danger inputerror'>{{ $message }} </p>
                             @enderror
                         </div>
+                        <div class="mb-3 col-md-6">
+
+                            <label class="form-label">Profile</label>
+                            <input type="file" accept="image/*" class="form-control border border-2 p-2" wire:model="user.profile" required>
+                          
+                            @error('user.profile')
+                            <p class='text-danger inputerror'>{{ $message }} </p>
+                            @enderror
+                            </div>
 
                         <div class="mb-3 col-md-12">
 

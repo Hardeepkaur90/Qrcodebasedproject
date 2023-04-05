@@ -4,9 +4,11 @@ namespace App\Http\Livewire;
 
 use App\Models\Items;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Edititem extends Component
 {
+    use WithFileUploads;
 
     public $title, $vendor_id, $type, $slug, $price, $quentity, $cooking, $content, $instructions, $status, $discount, $image;
     public $urlID = '';
@@ -74,15 +76,12 @@ class Edititem extends Component
         
 
 
-        // if ($this->image) {
-        //     $image = $this->image->store('files', 'public');
-        // }
+        if($this->image) {
+            $image = $this->image->store('files', 'public');
+            $data['image'] = $image;
+        }
 
-
-        // $data['image'] = $image;
-
-      
-        Items::where('id',$this->urlID)->update($data);
+      Items::where('id',$this->urlID)->update($data);
         session()->flash('message', 'item updated  successfully');
         $this->resetAll();
         $this->redirect('/manageitem');

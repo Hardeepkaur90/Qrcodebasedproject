@@ -10,14 +10,14 @@
                         Item
                     </a>
                 </div>
-                
-    @if(session()->has('message'))
 
-<div class="alert alert-danger">
-    {{session('message')}}
-</div>
+                @if(session()->has('message'))
 
-@endif
+                <div class="alert alert-danger">
+                    {{session('message')}}
+                </div>
+
+                @endif
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
@@ -47,6 +47,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                
                                 <?php $i = 1; ?>
                                 @foreach($items as $r)
                                 <tr>
@@ -71,12 +72,14 @@
                                         </div>
                                     </td>
 
-                                    
+
 
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
 
-                                            <img src="{{ Storage::url($r->image) }}" alt="test" height="50" width="50">
+                                     
+                                        <img src="{{ Storage::url($r->image) }}" alt="test" height="50" width="50">
+ 
 
                                         </div>
                                     </td>
@@ -87,7 +90,7 @@
                                             @else
                                             <h6 class="mb-0 text-sm">Not Ready</h6>
                                             @endif
-                                                 
+
 
                                         </div>
                                     </td>
@@ -109,27 +112,27 @@
                         </table>
                     </div>
                     <div class="table-responsive p-0">
-    {{ $items->links() }}
-</div>
+                        {{ $items->links() }}
+                    </div>
                 </div>
             </div>
             <div class="modal fade" id="confirmation-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Delete Conformation</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Are You Sure You Want To Delete this Item ?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" wire:click.prevent="deleteT({{@$r->id}})" data-bs-dismiss="modal">Yes</button>
-                        <button type="button" data-bs-dismiss="modal" class="btn btn-danger">No</button>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Delete Conformation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are You Sure You Want To Delete this Item ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" wire:click.prevent="deleteT({{@$r->id}})" data-bs-dismiss="modal">Yes</button>
+                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger">No</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </div>

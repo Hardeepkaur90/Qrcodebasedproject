@@ -60,6 +60,7 @@
 
                                             <td>
                                                 <div class="d-flex flex-column justify-content-center">
+                                               
                                                 <img src="{{ Storage::url($r->image) }}" alt="test" height="50" width="50">
                                                 
 

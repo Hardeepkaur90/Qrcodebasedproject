@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\menuController;
+use App\Http\Controllers\paymentController;
 use App\Http\Livewire\Addcategory;
 use App\Http\Livewire\Additem;
 use App\Http\Livewire\ExampleLaravel\Addemp;
@@ -21,6 +23,7 @@ use App\Http\Livewire\StaticSignUp;
 use App\Http\Livewire\Tables;
 use App\Http\Livewire\Managerole;
 use App\Http\Livewire\Addrole;
+use App\Http\Livewire\Displaymenu;
 use App\Http\Livewire\Editcategory;
 use App\Http\Livewire\Edititem;
 use App\Http\Livewire\Edittable;
@@ -45,10 +48,37 @@ use GuzzleHttp\Middleware;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/dispalymenu/{id}', [menuController::class,'index']);
+Route::post('/add-to-cart', [menuController::class,'addtocart']);
+Route::get('my-cart/{id}', [menuController::class,'mycart']);
+Route::post('/remove-item',[menuController::class,'removeitem']);
+Route::post('/change-qty',[menuController::class,'changeqty']);
+Route::post('search',[menuController::class,'searchinAdd'])->name('search');
+
+//paypal routes
+// Route::get('/payment',[paymentController::class,'index']);
+Route::post('/charge',[paymentController::class,'charge']);
+Route::get('/success',[paymentController::class,'success']);
+Route::get('/error',[paymentController::class,'error']);
+
+// Route::get('/search-item',[menuController::class,'searchinMe'])->name('search-item');
+
+
+
+// livewire front end components starts
+// Route::get('display-menu', Displaymenu::class);
+// livewire front end components ends
+
+
+// payment routes starts
+Route::get('/checkout-initiate', [menuController::class,'checkout']);
+// payment routes starts
+
 
 Route::get('/', function () {
     return redirect('sign-in');
 });
+
 
 
 
@@ -59,8 +89,8 @@ Route::get('reset-password/{id}', ResetPassword::class)->middleware('signed')->n
 
 
 
-Route::get('sign-up', Register::class)->middleware('guest')->name('register');
-Route::get('sign-in', Login::class)->middleware('guest')->name('login');
+Route::get('sign-up', Register::class)->middleware('guest','cors')->name('register');
+Route::get('sign-in', Login::class)->middleware('guest','cors')->name('login');
 
 Route::get('user-profile', UserProfile::class)->middleware('auth')->name('user-profile');
 Route::get('user-management', Addemp::class)->middleware('auth')->name('user-management');
@@ -74,7 +104,7 @@ Route::get('edit-table/{id}',Edittable::class)->middleware('auth')->name('editta
 Route::get('managemenu', Managemenu::class)->middleware('auth')->name('managemenu');
 
 
-Route::group(['middleware' => 'admin'], function () {
+Route::group(['middleware' => 'admin','cors'], function () {
     Route::get('adduser', Addemp::class)->middleware('auth')->name('adduser');
     Route::get('manageuser', Manageuser::class)->middleware('auth')->name('manageuser');
     Route::get('managerole', Managerole::class)->middleware('auth')->name('managerole');
@@ -107,8 +137,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('static-sign-up', StaticSignUp::class)->name('static-sign-up');
     Route::get('rtl', RTL::class)->name('rtl');
 });
-Route::get('qrcode-with-color', function () {
-    return QrCode::size(300)
-        ->backgroundColor(255, 55, 0)
-        ->generate('A simple example of QR code');
-});
+

@@ -29,6 +29,7 @@ class Login extends Component
     
     public function store()
     {
+       
         $attributes = $this->validate();
 
         if (! auth()->attempt($attributes)) {

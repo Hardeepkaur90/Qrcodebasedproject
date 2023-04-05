@@ -15,7 +15,7 @@
         </a>
     </div>
 
-        <form>
+        <form  enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control border border-2 p-2" wire:model="name" required>
@@ -39,10 +39,10 @@
             @error('location') <span class="text-danger">{{ $message }}</span> @enderror
 
         
-            <!-- <div class="input-group input-group-outline mb-3">
+            <div class="input-group input-group-outline mb-3">
               <input type="file" class="form-control" wire:model="profile" required>
-            </div> -->
-         
+            </div>
+            @error('profile') <span class="text-danger">{{ $message }}</span> @enderror
 
                     <div class="mb-3">
                 <label class="form-label">Password</label>

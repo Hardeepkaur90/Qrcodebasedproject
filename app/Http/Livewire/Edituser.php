@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Edituser extends Component
 {
-    public $name,$email,$phone,$location,$profile,$role,$password,$rest_id ,$user_u_id;
+    public $name,$email,$phone,$location,$profile,$role,$password,$rest_id ,$user_u_id,$status;
 
 
     public function mount($id)
@@ -19,7 +19,12 @@ class Edituser extends Component
         $this->phone=$existinguser->phone;
         $this->location=$existinguser->location;
         $this->role=$existinguser->role;
-
+        if($existinguser->status ==1){
+            $this->status="Active";
+        }else{
+            $this->status="Passive";
+        }
+     
         $this->user_u_id = $existinguser->id;
     
  }
@@ -31,6 +36,7 @@ class Edituser extends Component
         'email'=>['required'],
         'phone'=>['required'],
         'location'=>['required'],
+        'status'=>['required'],
         'role'=>['required'],
         
        
@@ -42,6 +48,7 @@ class Edituser extends Component
     $data['phone'] = $this->phone;
     $data['location'] = $this->location;
     $data['role'] = $this->role;
+    $data['status'] = $this->status;
 
   
     User::where('id',$this->user_u_id)->update($data);
