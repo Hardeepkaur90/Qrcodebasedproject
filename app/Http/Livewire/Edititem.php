@@ -10,7 +10,7 @@ class Edititem extends Component
 {
     use WithFileUploads;
 
-    public $title, $vendor_id, $type, $slug, $price, $quentity, $cooking, $content, $instructions, $status, $discount, $image;
+    public $title, $vendor_id, $type, $slug, $price, $quentity, $cooking, $content, $instructions, $status, $discount, $image,$image1;
     public $urlID = '';
 
     public function resetAll(){
@@ -46,21 +46,22 @@ class Edititem extends Component
         $this->status = $existingItem->status;
         $this->discount = $existingItem->discount;
         $this->image = $existingItem->image;
+        $this->image1 = $existingItem->image;
     }
 
     public function edit()
     {
-        $this->validate([
-            'title' => 'required',
-            'type' => 'required',
-            'price' => 'required',
-            'quentity' => 'required',
-            'cooking' => 'required',
-            'content' => 'required',
-            'instructions' => 'required',
-            'status' => 'required',
-            'discount' => 'required'
-        ]);
+        // $this->validate([
+        //     'title' => 'required',
+        //     'type' => 'required',
+        //     'price' => 'required',
+        //     'quentity' => 'required',
+        //     'cooking' => 'required',
+        //     'content' => 'required',
+        //     'instructions' => 'required',
+        //     'status' => 'required',
+        //     'discount' => 'required'
+        // ]);
 
    
 
@@ -76,12 +77,15 @@ class Edititem extends Component
         
 
 
-        if($this->image) {
-            $image = $this->image->store('files', 'public');
-            $data['image'] = $image;
+        if($this->image != $this->image1) {
+            $this->image = $this->image->store('files', 'public');
+            $data['image'] = $this->image;
+        }else{
+            $data['image'] = $this->image1;
         }
+    
 
-      Items::where('id',$this->urlID)->update($data);
+        Items::where('id',$this->urlID)->update($data);
         session()->flash('message', 'item updated  successfully');
         $this->resetAll();
         $this->redirect('/manageitem');

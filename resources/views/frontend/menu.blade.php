@@ -289,9 +289,9 @@
                         text: result.success,
                         icon: 'success',
                     })
-
-                    document.getElementById("items-count").innerHTML = result.count;
-                    window.location.reload();
+                    $('#items-count').text(result.count);
+                    // document.getElementById("items-count").text = result.count;
+                    // window.location.reload();
                 },
              });
           }

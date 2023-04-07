@@ -42,10 +42,6 @@ class menuController extends Controller
         $cart=Addtocart::with('itemDetail')->get();
 
         $totalprice = null;
-        // foreach ($cart as $p) {
-        //     $totalprice =$totalprice+$p->itemDetail->price;
-        //   }
-
           foreach ($cart as $p) {
             $totalprice =$totalprice+$p->itemDetail->price*$p->qty;
           }
@@ -70,14 +66,25 @@ class menuController extends Controller
     }
 
     public function changeqty(Request $req){
-        $obj=Addtocart::where('item_id','=',$req->item_id)->where('table_id','=',$req->table_id)->first();
-                $obj->qty= $req->qty;
-                $obj->save();
-             
+
+       
+             $obj=Addtocart::where('item_id','=',$req->item_id)->where('table_id','=',$req->table_id)->first();
+             Addtocart::where('item_id',$req->item_id)->where('table_id','=',$req->table_id)->update(['qty'=>$req->qty]);
+              
+             $grandTotal= 0;
+
+
+             $item = Addtocart::with('itemDetail')->where('table_id','=',$req->table_id)->get();  
+             foreach ($item as $p) {
+              $grandTotal = $grandTotal + $p->itemDetail->price*$p->qty;
+            }
+
             return response()->json([
-        'cart' =>  $obj,
-    ], 200);
-  
+                'obj' =>$item,
+                'item_id' => $req->item_id,
+                'grand_total'=>$grandTotal,
+            ], 200);
+        
     }
 
     public function searchinAdd(Request $request){
@@ -100,7 +107,4 @@ class menuController extends Controller
     
  }
 
-    // public function searchinMe(Request $request){
-
-    // }
 }

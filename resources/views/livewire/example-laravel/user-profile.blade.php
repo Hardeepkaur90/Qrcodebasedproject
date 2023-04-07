@@ -7,8 +7,8 @@
         <div class="row gx-4 mb-2">
             <div class="col-auto">
                 <div class="avatar avatar-xl position-relative">
-             
-                    <img src="{{ asset('assets') }}/img/bruce-mars.jpg" alt="profile_image"
+    
+                    <img src="{{ Storage::url(auth()->user()->profile) }}" alt="profile_image"
                         class="w-100 border-radius-lg shadow-sm">
                 </div>
             </div>
@@ -81,13 +81,13 @@
                     </div>
                 </div>
                 @endif
-                <form wire:submit.prevent='update' enctype="multipart/form-data">
+                <form wire:submit.prevent='update'>
                     <div class="row">
 
                         <div class="mb-3 col-md-6">
 
                             <label class="form-label">Email address</label>
-                            <input wire:model.lazy="user.email" type="email" class="form-control border border-2 p-2">
+                            <input wire:model.lazy="email" type="email" class="form-control border border-2 p-2">
                             @error('user.email')
                             <p class='text-danger inputerror'>{{ $message }} </p>
                             @enderror
@@ -96,7 +96,7 @@
                         <div class="mb-3 col-md-6">
 
                             <label class="form-label">Name</label>
-                            <input wire:model.lazy="user.name" type="text" class="form-control border border-2 p-2">
+                            <input wire:model.lazy="name" type="text" class="form-control border border-2 p-2">
                             @error('user.name')
                             <p class='text-danger inputerror'>{{ $message }} </p>
                             @enderror
@@ -105,7 +105,7 @@
                         <div class="mb-3 col-md-6">
 
                             <label class="form-label">Phone</label>
-                            <input wire:model.lazy="user.phone" type="number" class="form-control border border-2 p-2">
+                            <input wire:model.lazy="phone" type="number" class="form-control border border-2 p-2">
                             @error('user.phone')
                             <p class='text-danger inputerror'>{{ $message }} </p>
                             @enderror
@@ -114,7 +114,7 @@
                         <div class="mb-3 col-md-6">
 
                             <label class="form-label">Location</label>
-                            <input wire:model.lazy="user.location" type="text" class="form-control border border-2 p-2">
+                            <input wire:model.lazy="location" type="text" class="form-control border border-2 p-2">
                             @error('user.location')
                             <p class='text-danger inputerror'>{{ $message }} </p>
                             @enderror
@@ -122,7 +122,8 @@
                         <div class="mb-3 col-md-6">
 
                             <label class="form-label">Profile</label>
-                            <input type="file" accept="image/*" class="form-control border border-2 p-2" wire:model="user.profile" required>
+                        
+                            <input  wire:model.lazy="profile" type="file" accept="image/*" class="form-control border border-2 p-2">
                           
                             @error('user.profile')
                             <p class='text-danger inputerror'>{{ $message }} </p>
@@ -132,7 +133,7 @@
                         <div class="mb-3 col-md-12">
 
                             <label for="floatingTextarea2">About</label>
-                            <textarea wire:model.lazy="user.about" class="form-control border border-2 p-2"
+                            <textarea wire:model.lazy="about" class="form-control border border-2 p-2"
                                 placeholder=" Say something about yourself" id="floatingTextarea2" rows="4"
                                 cols="50"></textarea>
                             @error('user.about')
