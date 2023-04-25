@@ -133,6 +133,20 @@ $('#confirmation-modal').modal('show');
 })
 
 
+window.addEventListener('delete_model',event=>{
+
+$('#confirmation-modal-chef').modal('show');
+})
+
+//chef delete pop up show
+window.addEventListener('delete_chef_model',event=>{
+
+$('#confirmation-modal-chef').modal('show');
+})
+
+
+
+
 
 });
 </script>

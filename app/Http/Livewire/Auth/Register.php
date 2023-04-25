@@ -13,7 +13,7 @@ class Register extends Component
     public $password = '';
     public $role =4;
     public $profile="";
-    public $status=0;
+    public $status='Active';
 
     protected $rules=[
     'name' => 'required|min:3',

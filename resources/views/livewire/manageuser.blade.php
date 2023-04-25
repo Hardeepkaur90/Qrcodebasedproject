@@ -27,6 +27,9 @@
                                                 Role</th>
                                                 <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Profile</th>
+                                                <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Address</th>
                                                 <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -66,12 +69,19 @@
 
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{$r->location}}</p>
+                                            @if($r->profile)
+                                               <img src="{{ asset('storage/'.$r->profile) }}" style="border-radius: 31px !important;" alt="" height="50" width="50">
+                                                @else
+                                                <img src="{{ asset('storage/profiles/dummy-profile-pic.jpg') }}"style="border-radius: 31px !important;" alt="" height="50" width="50">
+                                                @endif
+                                               
 
                                             </td>
-
                                             <td>
-                                                @if($r->status == 1)
+                                            <p class="text-xs font-weight-bold mb-0">{{$r->location}}</p>
+                                            </td>
+                                            <td>
+                                                @if($r->status == 'Active')
                                                 <p class="text-xs font-weight-bold mb-0">Active</p>
                                                 @else
                                                 <p class="text-xs font-weight-bold mb-0">Passive</p>

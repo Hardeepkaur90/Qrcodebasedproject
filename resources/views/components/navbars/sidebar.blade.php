@@ -10,8 +10,14 @@
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item mt-3">
-         
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">{{ @Auth::user()->roles->role_name === 'superadmin' ? 'SuperAdmin' : 'Admin' }}</h6>
+           @if(@Auth::user()->roles->role_name === 'superadmin')
+           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">SuperAdmin</h6>
+           @elseif(@Auth::user()->roles->role_name === 'admin')
+           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Admin</h6>
+            @else
+            <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Chef</h6>
+           @endif
+              
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white {{ Route::currentRouteName() == 'user-profile' ? ' active bg-gradient-primary' : '' }} " href="{{ route('user-profile') }}">
@@ -103,14 +109,26 @@
             </li>
 
 <!-- type of food end -->
-
-@else
-
-
-
-
-          
-            <!-- End of Role User -->
+@elseif(@Auth::user()->roles->role_name === 'chef' )
+<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class=" text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1rem;" class="fas fa-lg fa fa-user ps-2 pe-2 text-center"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Order Management</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li class="nav-item"> <a class="nav-link dropdown-item  {{ Route::currentRouteName() == 'ordermanagement' ? ' active bg-gradient-primary' : '' }} " href="{{ route('ordermanagement') }}">
+                            <div class="text-center me-2 d-flex align-items-center justify-content-center">
+                                <i style="font-size: 1rem;" class="fas fa-lg fa-plus-square ps-2 pe-2 text-center"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Manage Order</span>
+                        </a></li>
+                   
+                </ul>
+            </li>
+            @elseif(@Auth::user()->roles->role_name === 'admin' )
+   <!-- End of Role User -->
 
 
             <!-- item Management -->
@@ -198,7 +216,55 @@
 
                 </ul>
             </li>
+<!-- chef management -->
 
+<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class=" text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1rem;" class="fas fa-lg fa fa-user ps-2 pe-2 text-center"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Chef Management</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li class="nav-item"> <a class="nav-link dropdown-item  {{ Route::currentRouteName() == 'chefmanagement' ? ' active bg-gradient-primary' : '' }} " href="{{ route('chefmanagement') }}">
+                            <div class="text-center me-2 d-flex align-items-center justify-content-center">
+                                <i style="font-size: 1rem;" class="fas fa-lg fa-plus-square ps-2 pe-2 text-center"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Manage Chef</span>
+                        </a></li>
+                    <li class="nav-item"> <a class="nav-link dropdown-item {{ Route::currentRouteName() == 'addchef' ? ' active bg-gradient-primary' : '' }} " href="{{ route('addchef') }}">
+                            <div class="text-center me-2 d-flex align-items-center justify-content-center">
+                                <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Add Chef</span>
+                        </a></li>
+
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class=" text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1rem;" class="fas fa-lg fa fa-user ps-2 pe-2 text-center"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Order Management</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li class="nav-item"> <a class="nav-link dropdown-item  {{ Route::currentRouteName() == 'ordermanagement' ? ' active bg-gradient-primary' : '' }} " href="{{ route('ordermanagement') }}">
+                            <div class="text-center me-2 d-flex align-items-center justify-content-center">
+                                <i style="font-size: 1rem;" class="fas fa-lg fa-plus-square ps-2 pe-2 text-center"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Manage Order</span>
+                        </a></li>
+                   
+                </ul>
+            </li>
+<!-- end chef management -->
+
+
+<!-- order Management start -->
+
+
+<!-- order Management end -->
 
             @endif
 

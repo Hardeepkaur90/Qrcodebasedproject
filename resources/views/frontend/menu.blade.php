@@ -74,14 +74,14 @@
     <div class="search-wrapper position-relative">
         <div class="container">
             <div class="search-section">
-              <form action="{{ route('search')}}" method="post">
-                @csrf
+                <form action="{{ route('search')}}" method="post">
+                    @csrf
                     <div class="row">
                         <div class="col-lg-12 col-sm-12">
-                            <div class="searchbar" >
+                            <div class="searchbar">
                                 <div class="input-group">
                                     <input type="hidden" name="table_id" value="{{$id}}">
-                                    <input type="text" name="search_item" id="search_item" class="form-control searchbar-input" value="{{ old('search_item') }}"placeholder="Search for dishes or cuisines" >
+                                    <input type="text" name="search_item" id="search_item" class="form-control searchbar-input" value="{{ old('search_item') }}" placeholder="Search for dishes or cuisines">
                                     <span class="input-group-addon">
                                         <button type="submit" class="search-btn" id="basic-addon2">
                                             <span class="hidden-xs">Search</span>
@@ -91,7 +91,7 @@
                             </div>
                         </div>
                     </div>
-                    </form>
+                </form>
                 <img src="{{ url('/assets/images/pizza.png') }}" alt="FoodCourt" class="img-fluid pizza-fixed-img">
             </div>
         </div>
@@ -107,7 +107,8 @@
             <ul class="nav nav-tabs">
 
                 @foreach($category as $c)
-                <li data-active="#{{$c->name}}"><a data-toggle="tab" href="#desserts">{{$c->name}}</a></li>
+
+                <li data-active="#{{$c->name}}"><a data-toggle="tab" onclick="sort( '{{$c->id}}' )" href="JavaScript:void(0)">{{$c->name}}</a></li>
                 @endforeach
 
             </ul>
@@ -143,6 +144,12 @@
                     </div>
                 </div>
             </div>
+
+            <div class="tab-content-search">
+
+            </div>
+
+
 
 
 
@@ -274,7 +281,7 @@
 
             var url = window.location.href;
             var tablenumber = url.split("/").pop();
-              $.ajax({
+            $.ajax({
                 type: 'POST',
                 url: "{{ url('add-to-cart')}}",
                 data: {
@@ -284,7 +291,7 @@
                 },
                 success: function(result) {
 
-                    console.log("result.count",result.count);
+                    console.log("result.count", result.count);
                     Swal.fire({
                         text: result.success,
                         icon: 'success',
@@ -293,19 +300,55 @@
                     // document.getElementById("items-count").text = result.count;
                     // window.location.reload();
                 },
-             });
-          }
+            });
+        }
 
-        function search(){
-        
+        function sort(catid) {
+
+            var url = window.location.href;
+            var id = url.split("/").pop();
+            console.log("table id", id);
+            console.log("category id", catid);
+            $.ajax({
+                type: 'get',
+                url: "{{ route('main-menu') }}" + '/' + id + '/' + catid,
+
+                success: function(result) {
+                    $('.tab-content-search').html('');
+                    console.log("result", result);
+
+                    $('.tab-content').hide();
+                    $('.tab-content-search').show();
+
+
+
+                    if (result.menudata.length > 0) {
+                        for (let i = 0; i < result.menudata.length; i++) {
+                            $('.tab-content-search').append(' <div class="col-lg-3 col-md-4 col-sm-6">  <div class="cs-card mb-5 cs-product-card"> <div class="card-image"><img src="http://127.0.0.1:8000/storage/' + result.menudata[i].image + '" height="250" alt="test"></div><div class="pull-left"> <h4>' + result.menudata[i].title + '</h4><p>$' + result.menudata[i].price + '</p></div></div> <div class="pull-right"><a class="btn btn-sm btn-round btn-primary card-btn" onclick="addtocart(' + result.menudata[i].title + ')">Add to cart</a></div></div>');
+
+
+
+                        }
+                    } else {
+                        $('.tab-content-search').append('No Data fount')
+                    }
+
+                }
+            })
+        }
+
+        function search() {
+
             $search_item = document.getElementById("search_item").value;
             var url = "{{route('search', ':search_item')}}";
-            url = url.replace(':search_item',  $search_item);
-             $.ajax({
-                 type:'get',
-                 url:url,
-                 success:function(result){
-                  console.log("result",result);
+            url = url.replace(':search_item', $search_item);
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function(result) {
+                    console.log("result", result);
+
+
                 }
             })
         }

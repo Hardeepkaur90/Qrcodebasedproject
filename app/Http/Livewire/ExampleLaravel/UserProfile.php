@@ -18,6 +18,7 @@ class UserProfile extends Component
     public $about;
     public $location;
     public $image;
+    public $state;
 
     protected function rules()
     {
@@ -40,13 +41,14 @@ class UserProfile extends Component
         $this->phone = $this->user->phone;
         $this->about = $this->user->about;
         $this->location = $this->user->location;
+        $this->state = '';
     }
 
 
 
     public function update()
     {
-        $data['name'] =  $this->name;
+       $data['name'] =  $this->name;
         $data['email'] =  $this->email;
         $data['phone'] =  $this->phone;
         $data['about'] =  $this->about;
@@ -66,5 +68,10 @@ class UserProfile extends Component
     public function render()
     {
         return view('livewire.example-laravel.user-profile');
+    }
+
+    public function edit(){
+        $this->state = 'view';
+       return back();
     }
 }

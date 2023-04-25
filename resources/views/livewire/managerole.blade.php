@@ -27,19 +27,20 @@
                                                 NAME</th>
                                            
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                ACTION
                                             </th>
                                            
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php $i = 1; ?>
                                         @foreach($role as $r)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <p class="mb-0 text-sm">1</p>
+                                                        <p class="mb-0 text-sm">{{$i}}</p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -64,6 +65,7 @@
                                                         <div class="ripple-container"></div>
                                                 </button>
                                             </td>
+                                            <?php $i++; ?>
                                         </tr>
                                     @endforeach
                                     </tbody>

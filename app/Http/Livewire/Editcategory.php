@@ -36,16 +36,11 @@ class Editcategory extends Component
            
         ]);
 
+        $url=null;
         if($this->image != $this->image1){
             $url = $this->image->store('category','public');
-            $data['image'] =$url;
-        }else{
-            $data['image'] =  $this->image1; 
-        }
-
-      
-        
-
+          }
+        $data['image'] = $url ? $url: $this->image1;
         $data['name'] = $this->name;
         $data['status'] = $this->status;
        

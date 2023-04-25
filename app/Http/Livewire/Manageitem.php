@@ -48,8 +48,6 @@ class Manageitem extends Component
 
     public function edit($id)
     {
-
-
-        $this->redirect('edititem/' . $id);
+         $this->redirect('edititem/' . $id);
     }
 }

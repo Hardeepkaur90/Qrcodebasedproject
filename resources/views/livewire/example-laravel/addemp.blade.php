@@ -38,9 +38,9 @@
             </div>
             @error('location') <span class="text-danger">{{ $message }}</span> @enderror
 
-        
+           
             <div class="input-group input-group-outline mb-3">
-              <input type="file" class="form-control" wire:model="profile" required>
+                 <input type="file" class="form-control"  wire:model="profile" required>
             </div>
             @error('profile') <span class="text-danger">{{ $message }}</span> @enderror
 
@@ -65,5 +65,7 @@
         </form>
 
     </div>
+
+   
 
 </div>

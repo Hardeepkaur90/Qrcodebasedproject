@@ -131,6 +131,7 @@
                         <form action="{{url('charge')}}" method="post">
 
                             {{ csrf_field() }}
+                            <input type="hidden" name="table_id" value="{{request()->id}}">
                             <input type="hidden" name="value" value="{{ $totalprice }}">
                             <!-- <a class="checkout-button"  href="JavaScript:void(0)">Proceed to checkout</a> -->
                             <!-- <a href="#" class="checkout-button">Proceed to checkout</a> -->
@@ -254,7 +255,7 @@
                 },
                 success: function(result) {
 
-                   
+
                     var dd = result.obj;
                     var data = JSON.stringify(result.obj);
                     var item_idold = JSON.stringify(result.item_id);
@@ -267,17 +268,17 @@
                             console.log("result===>", dd[i].qty);
                             var idcus = 'qty_' + result.item_id
                             var ptotal = '#total_ammount_' + result.item_id;
-                          
-                            $(ptotal).text("$"+dd[i].qty*dd[i].item_detail['price']);
+
+                            $(ptotal).text("$" + dd[i].qty * dd[i].item_detail['price']);
                             $('#' + idcus).val(dd[i].qty);
-                            $('.grandTotal').text("$"+tatalgrand);
+                            $('.grandTotal').text("$" + tatalgrand);
 
 
-                            
-                           
+
+
                             $('#inc_' + result.item_id).attr('qty', dd[i].qty);
                             console.log("inside===>");
-                    return;
+                            return;
                         }
                     }
 
@@ -294,6 +295,13 @@
             $qty = event.target.getAttribute("qty");
             $qty = --$qty;
             $url = window.location.href;
+
+            if ($qty < 0) {
+
+                alert("qty can't be -ve number");
+                return;
+            }
+
 
             $tablenumber = $url.split("/").pop();
 
@@ -322,15 +330,15 @@
                         if (dd[i].item_id == result.item_id) {
                             console.log("result===>", dd[i].qty);
                             var idcus = 'qty_' + result.item_id;
-                            console.log("price===>", dd[i].qty*dd[i].item_detail['price']);
-                             
+                            console.log("price===>", dd[i].qty * dd[i].item_detail['price']);
+
                             var ptotal = '#total_ammount_' + result.item_id;
 
-                            $(ptotal).text("$"+dd[i].qty*dd[i].item_detail['price']);
-                            $('.grandTotal').text("$"+tatalgrand);
+                            $(ptotal).text("$" + dd[i].qty * dd[i].item_detail['price']);
+                            $('.grandTotal').text("$" + tatalgrand);
 
-                            $('#'+idcus).val(dd[i].qty);
-                        
+                            $('#' + idcus).val(dd[i].qty);
+
                             $('#dec_' + result.item_id).attr('qty', dd[i].qty);
                         }
                     }
@@ -338,75 +346,6 @@
                 },
                 error: function(e) {
                     alert(e.error);
-                },
-            });
-        }
-
-        function increase($id) {
-            $qty = document.getElementById('qty_').value;
-            $qty = ++$qty;
-
-            console.log("$qty1==>", $qty);
-
-            var url = window.location.href;
-            var tablenumber = url.split("/").pop();
-            console.log("table id==>", tablenumber);
-            console.log("item id===>", $id);
-            console.log("item id qty===>", $qty);
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('/change-qty')}}",
-                data: {
-                    table_id: tablenumber,
-                    item_id: $id,
-                    qty: $qty,
-
-                    '_token': '{{csrf_token()}}'
-                },
-                success: function(result) {
-
-
-                    console.log("$qty2===>", $qty);
-                    console.log(JSON.stringify(result.obj));
-                    window.location.reload();
-
-
-
-
-
-                },
-                error: function(e) {
-                    alert(e.error);
-                },
-            });
-        }
-
-        function decrease($id) {
-            $qty = document.getElementById('qty_').value;
-            console.log($qty);
-            $qty = --$qty;
-            var url = window.location.href;
-            var tablenumber = url.split("/").pop();
-            console.log("table id==>", tablenumber);
-            console.log("item id===>", $id);
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('/change-qty')}}",
-                data: {
-                    table_id: tablenumber,
-                    item_id: $id,
-                    qty: $qty,
-
-                    '_token': '{{csrf_token()}}'
-                },
-                success: function(result) {
-                    //         Swal.fire({
-                    //             text: result.success,
-                    //             icon: 'success',
-                    // });
-                    $qty == '';
-                    window.location.reload();
-                    document.getElementById("items-count").innerHTML = result.count;
                 },
             });
         }
@@ -442,7 +381,7 @@
                         icon: 'success',
                     });
 
-                  
+
                     url = 'http://127.0.0.1:8000/my-cart/' + tablenumber;
                     window.location = url
                 },

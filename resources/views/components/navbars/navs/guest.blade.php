@@ -1,2 +1,2 @@
 
-<a href="{{url('/dispalymenu/9')}}">Check Menu</a>
+<a href="{{url('/dispalymenu/19')}}">Check Menu</a>

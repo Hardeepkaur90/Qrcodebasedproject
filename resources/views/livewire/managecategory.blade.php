@@ -77,13 +77,7 @@
                                                 </div>
                                             </td>
                                             <td class="align-middle">
-                                                <!-- <a rel="tooltip" class="btn btn-success btn-link"
-                                                    href="" data-original-title=""
-                                                    title="">
-                                                    <i class="material-icons">edit</i>
-                                                    <div class="ripple-container"></div>
-                                                </a> -->
-                                                
+                                              
                                                 <button type="button" wire:click.prevent="delete({{ $r->id }})" class="btn btn-danger btn-link"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">close</i>

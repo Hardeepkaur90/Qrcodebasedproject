@@ -19,18 +19,16 @@ class Edituser extends Component
         $this->phone=$existinguser->phone;
         $this->location=$existinguser->location;
         $this->role=$existinguser->role;
-        if($existinguser->status ==1){
-            $this->status="Active";
+        if($existinguser->status =='Active'){
+            $this->status='Active';
         }else{
-            $this->status="Passive";
+            $this->status='Passive';
         }
      
         $this->user_u_id = $existinguser->id;
-    
- }
+     }
 
- public function update(){
-
+    public function update(){
     $validatedData = $this->validate([
         'name'=>['required'],
         'email'=>['required'],
@@ -50,8 +48,8 @@ class Edituser extends Component
     $data['role'] = $this->role;
     $data['status'] = $this->status;
 
-  
-    User::where('id',$this->user_u_id)->update($data);
+   $updated = User::where('id','=',$this->user_u_id)->update($data);
+
     session()->flash('message', 'user updated successfully');
  
     $this->redirect('/manageuser');

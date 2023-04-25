@@ -1,8 +1,21 @@
 <div>
     <div class="card-body">
+        
+    @if(session()->has('message'))
 
+<div class="alert alert-success">
+    {{session('message')}}
+</div>
 
-        <form enctype="multipart/form-data">
+@endif
+
+ <div class=" me-3 my-3 text-end">
+        <a class="btn bg-gradient-dark mb-0" href="{{ URL::route('chefmanagement'); }}"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Manage
+            Chef
+        </a>
+    </div>
+
+        <form >
             <div class="mb-3">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control border border-2 p-2" wire:model="name" required>
@@ -21,33 +34,24 @@
 
             <div class="mb-3">
                 <label class="form-label">Address</label>
-                <input type="text" class="form-control border border-2 p-2" wire:model="location" required>
+                <input type="email" class="form-control border border-2 p-2" wire:model="location" required>
             </div>
             @error('location') <span class="text-danger">{{ $message }}</span> @enderror
 
-            <div class="mb-3">
-                <label class="form-label">User Status</label>
-
-              
-
-                <select style="border: 2px solid lightgray;
-                   padding: 8px;" wire:model="status" class="form-control">
-                    <option value="Active">Active</option>
-                    <option value="Passive">Passive</option>
-                </select>
-
+        
+            <div class="input-group input-group-outline mb-3">
+              <input type="file" class="form-control" wire:model="profile" required>
             </div>
-            @error('location') <span class="text-danger">{{ $message }}</span> @enderror
-
-
-            <div class="mb-3">
-                <!-- <label class="form-label">Password</label> -->
-                <input type="hidden" class="form-control border border-2 p-2" wire:model="password" required>
+            @error('profile') <span class="text-danger">{{ $message }}</span> @enderror
+<!-- 
+                    <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control border border-2 p-2" wire:model="password" required>
             </div>
             @error('password') <span class="text-danger">{{ $message }}</span> @enderror
-
+           -->
             <div class="text-center">
-                <button type="submit" wire:click.prevent="update()" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Update User</button>
+                <button type="submit"  wire:click.prevent="edit()"  class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Save User</button>
             </div>
         </form>
 

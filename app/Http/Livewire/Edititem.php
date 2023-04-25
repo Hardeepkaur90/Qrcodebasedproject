@@ -3,32 +3,33 @@
 namespace App\Http\Livewire;
 
 use App\Models\Items;
+use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class Edititem extends Component
 {
     use WithFileUploads;
-
+    public $category;
     public $title, $vendor_id, $type, $slug, $price, $quentity, $cooking, $content, $instructions, $status, $discount, $image,$image1;
     public $urlID = '';
 
-    public function resetAll(){
-        $this->title ='';
-        $this->vendor_id='';
-        $this->type='';
-        $this->slug='';
-        $this->price='';
-        $this->quentity='';
-        $this->cooking='';
-        $this->content='';
-        $this->instructions='';
-        $this->status='';
-        $this->discount='';
-        $this->image='';
+//     public function resetAll(){
+//         $this->title ='';
+//         $this->vendor_id='';
+//         $this->type='';
+//         $this->slug='';
+//         $this->price='';
+//         $this->quentity='';
+//         $this->cooking='';
+//         $this->content='';
+//         $this->instructions='';
+//         $this->status='';
+//         $this->discount='';
+//         $this->image='';
        
       
-   }
+//    }
 
     public function mount($id)
     {
@@ -47,6 +48,9 @@ class Edititem extends Component
         $this->discount = $existingItem->discount;
         $this->image = $existingItem->image;
         $this->image1 = $existingItem->image;
+
+        $this->category = Category::get();
+  
     }
 
     public function edit()
@@ -87,8 +91,8 @@ class Edititem extends Component
 
         Items::where('id',$this->urlID)->update($data);
         session()->flash('message', 'item updated  successfully');
-        $this->resetAll();
-        $this->redirect('/manageitem');
+        // $this->resetAll();
+        // $this->redirect('/manageitem');
        
 
 
