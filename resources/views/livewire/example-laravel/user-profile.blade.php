@@ -25,21 +25,21 @@
                 <div class="nav-wrapper position-relative end-0">
                     <ul class="nav nav-pills nav-fill p-1" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;"
+                            <a class="nav-link mb-0 px-0 py-2 active " data-bs-toggle="tab" href="javascript:;"
                                 role="tab" aria-selected="true">
                                 <i class="material-icons text-lg position-relative">home</i>
                                 <span class="ms-1">App</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab"
+                            <a class="nav-link mb-0 px-0 py-2 " data-bs-toggle="tab" href="javascript:;" role="tab"
                                 aria-selected="false">
                                 <i class="material-icons text-lg position-relative">email</i>
                                 <span class="ms-1">Messages</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab"
+                            <a class="nav-link mb-0 px-0 py-2 " data-bs-toggle="tab" href="javascript:;" role="tab"
                                 aria-selected="false">
                                 <i class="material-icons text-lg position-relative">settings</i>
                                 <span class="ms-1">Settings</span>
@@ -121,7 +121,7 @@
 
                         <div class="mb-3 col-md-12">
 
-                            <label for="floatingTextarea2">About</label>
+                            <label class="form-label" for="floatingTextarea2">About</label>
                             <textarea wire:model.lazy="user.about" class="form-control border border-2 p-2"
                                 placeholder=" Say something about yourself" id="floatingTextarea2" rows="4"
                                 cols="50"></textarea>
@@ -130,7 +130,9 @@
                             @enderror
                         </div>
                     </div>
-                    <button type="submit" class="btn bg-gradient-dark">Submit</button>
+                    <div style="width:100%; max-width:200px">
+                        <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" style="width:100%">Submit</button>
+                    </div>
                 </form>
 
             </div>

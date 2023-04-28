@@ -23,6 +23,7 @@ body.bg-gray-200 {
 
 .navbar-nav .dropdown-menu.show {
     display: block;
+    box-shadow: none;
 }
 
 .dropdown:not(.dropdown-hover) .dropdown-menu.show {
@@ -110,7 +111,153 @@ body.bg-gray-200 {
 footer {
     background-color: #fff;
     margin-left: -10px;
+    margin-top: 30px;
 }
+
+.notification {
+    padding-right: 0 !important;
+    padding-left: 20px;
+}
+
+.user-nav-link .fa {
+    font-size: 16px;
+    color: #e91e63;
+}
+
+.user-nav-link span {
+    color: #111;
+    font-weight: 400;
+}
+
+#sidenav-collapse-main .navbar-nav h6 {
+    color: #fff !important;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    text-transform: capitalize !important;
+    font-weight: 500 !important;
+}
+
+.navbar-vertical .nav-item:hover .nav-link {
+    background-color: transparent;
+}
+
+.navbar-vertical.navbar-expand-xs .navbar-nav .nav-link .text-center .fas {
+    color: #e91e63;
+}
+
+.navbar-vertical.navbar-expand-xs .navbar-nav > .nav-item:hover .fas {
+    color: #fff;
+}
+
+.navbar-vertical .nav-item:hover > .nav-link, .navbar-vertical .nav-link.show {
+    background-color: #e91e63;
+}
+
+.navbar-vertical.navbar-expand-xs .navbar-nav .nav-link.show .text-center .fas {
+    color: #fff;
+}
+
+.card .card-body {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.card-title {
+    position: relative;
+}
+
+.card-title:before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #e91e63;
+    max-width: 60px;
+    opacity: 0.5;
+    border-radius: 20px;
+}
+
+.copyright .fa {
+    color: #e91e63;
+}
+
+.form-label {
+    color: #111;
+    font-size:15px;
+}
+
+.form-control, .form-control:focus {
+    background-color: #f6f8fc;
+    border: solid 1px #eee !important;
+    padding: 10px 15px !important;
+}
+
+.btn {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px;
+}
+
+.table tr th {
+    color: #111 !important;
+    text-transform: capitalize !important;
+    font-size: 14px !important;
+    opacity: 1 !important;
+    font-weight: 600 !important;
+}
+
+.table tr td, .table tr td h6 {
+    color: #111 !important;
+    font-size: 14px !important;
+    opacity: 1 !important;
+    font-weight: 400 !important;
+}
+
+.table tr td a.btn-link, .table tr td .btn-link {
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-bottom: 0;
+    line-height: 26px;
+    background-color: #e91e63;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.table tr:nth-of-type(even) {
+    background-color: #f6f8fc;
+}
+
+.table tr td {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.pagination {
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.pagination li {
+    margin: 0 1px;
+}
+
+.nav-pills .nav-item a {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+.nav-pills .nav-item a.active .material-icons {
+    color: #e91e63;
+}
+
+.nav-pills .nav-item a.active span {
+    color: #e91e63;
+    font-weight: 600;
+}
+
 
 @media (min-width: 1200px) {
     .sidenav.fixed-start + .main-content {

@@ -19,10 +19,10 @@
             <form method="POST" action="" class="d-none" id="logout-form">
                 @csrf
             </form>
-            <ul class="navbar-nav  justify-content-end">
+            <ul class="navbar-nav  justify-content-end user-nav-link">
                 <li class="nav-item d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                        <i class="fa fa-user me-sm-1"></i>
+                        <i class="fa fa-user-o me-sm-1"></i>
                         <livewire:auth.logout/>
                     </a>
                 </li>
@@ -36,10 +36,10 @@
                     </a>
                 </li>
                
-                <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                <li class="nav-item dropdown pe-2 d-flex align-items-center notification">
                     <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-bell cursor-pointer"></i>
+                        <i class="fa fa-bell-o cursor-pointer"></i>
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">

@@ -1,7 +1,7 @@
 <div>
     <!-- Navbar -->
     <!-- End Navbar -->
-    <div style="display:flex; min-height:calc(100vh - 155px)" class="py-4">
+    <div style="display:flex; min-height:calc(100vh - 182px)" class="py-4">
     <div class="container-fluid py-4">
         <div class="card text-left">
             <div class="card-body">
