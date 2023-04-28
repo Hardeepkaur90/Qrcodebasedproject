@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+body.bg-gray-200 {
+    background-color: #f6f8fc !important;
+    font-family: 'Montserrat', sans-serif !important;
+    line-height: 1.4;
+    font-size: 16px;
+    color: #111 !important;
+}
+
 .navbar-vertical.navbar-expand-xs .navbar-collapse {
     height: 100%;
 }
@@ -32,13 +42,80 @@
     width: 100%;
     max-width: 60px;
 }
-/* .custom-font{
-    font-size:15px !important;
+
+/* new custom code */
+.custom-sidebar {
+    background-color: #171829 !important;
 }
 
-footer{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-} */
+.navbar-vertical.navbar-expand-xs {
+    max-width: 17.5rem !important;
+}
+
+.sidenav-header {
+    height: auto;
+}
+
+.sidenav .navbar-brand {
+    padding: 1.6rem 0.7rem;
+}
+
+.menu-managament {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.custom-sidebar hr.horizontal.light {
+    background-color: #626370;
+}
+
+.navbar-vertical .navbar-nav .nav-link {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 15px;
+    font-weight: 400;
+    margin: 0 !important;
+    padding: 0.9rem 1rem !important;
+}
+
+.navbar-vertical.navbar-expand-xs .navbar-nav .nav-link .text-center {
+    flex: 0 0 37px !important;
+    margin-right: 0 !important;
+    text-align: left !important;
+}
+
+.navbar-vertical.navbar-expand-xs .dropdown-toggle::after {
+    position: absolute !important; 
+    right: 17px;
+    top: 20px;
+}
+
+.navbar-main {
+    background-color: #fff;
+    padding: 12px 8px !important;
+    margin-left: -10px !important;
+    margin-right: 0 !important;
+    box-shadow: 0 0 20px rgba(89,102,122,0.1) !important;
+}
+
+#navbar .input-group .form-control {
+    background-color: #f6f8fc;
+}
+
+#navbar .input-group .form-label {
+    z-index: 5;
+}
+
+footer {
+    background-color: #fff;
+    margin-left: -10px;
+}
+
+@media (min-width: 1200px) {
+    .sidenav.fixed-start + .main-content {
+        margin-left: 17.5rem;
+        padding-left: 10px;
+    }
+}
+

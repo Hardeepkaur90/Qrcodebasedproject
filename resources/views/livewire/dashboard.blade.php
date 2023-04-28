@@ -1,9 +1,9 @@
 <div>
     <!-- Navbar -->
     <!-- End Navbar -->
-    <div style="display:flex">
+    <div style="display:flex; min-height:calc(100vh - 155px)" class="py-4">
     <div class="container-fluid py-4">
-        <div class="card text-center" style="width: 18rem;">
+        <div class="card text-left">
             <div class="card-body">
                 <h5 class="card-title">Total Orders</h5>
                 <p class="card-text">Total sale for Today is:50</p>
@@ -13,7 +13,7 @@
 
     </div>
     <div class="container-fluid py-4">
-        <div class="card text-center" style="width: 18rem;">
+        <div class="card text-left">
             <div class="card-body">
                 <h5 class="card-title">Total Orders</h5>
                 <p class="card-text">Total sale for Today is:50</p>
@@ -23,7 +23,7 @@
 
     </div>
     <div class="container-fluid py-4">
-        <div class="card text-center" style="width: 18rem;">
+        <div class="card text-left">
             <div class="card-body">
                 <h5 class="card-title">Total Orders</h5>
                 <p class="card-text">Total sale for Today is:50</p>

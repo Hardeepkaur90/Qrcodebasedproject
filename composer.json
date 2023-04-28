@@ -5,14 +5,14 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.3|^8.1",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.6",
         "livewire/livewire": "^2.8",
-        "simplesoftwareio/simple-qrcode": "^4.2"
+        "simplesoftwareio/simple-qrcode": "^4.2.0"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",
