@@ -14,22 +14,6 @@ class Edititem extends Component
     public $title, $vendor_id, $type, $slug, $price, $quentity, $cooking, $content, $instructions, $status, $discount, $image,$image1;
     public $urlID = '';
 
-//     public function resetAll(){
-//         $this->title ='';
-//         $this->vendor_id='';
-//         $this->type='';
-//         $this->slug='';
-//         $this->price='';
-//         $this->quentity='';
-//         $this->cooking='';
-//         $this->content='';
-//         $this->instructions='';
-//         $this->status='';
-//         $this->discount='';
-//         $this->image='';
-       
-      
-//    }
 
     public function mount($id)
     {

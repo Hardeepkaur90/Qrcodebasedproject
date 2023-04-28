@@ -17,31 +17,18 @@ class menuController extends Controller
    public function index(Request $req, $id , $catid = null)
    {
      
-    
-      $vendor_id = Table::where('id', $id)->pluck('rest_id');
-
-     
-      
+     $vendor_id = Table::where('id', $id)->pluck('rest_id');
       if ($req->ajax()) {
-      
-         $menudata = Items::where('vendor_id', '=', $vendor_id[0])->where('type', '=', $catid)->get();
-
+       $menudata = Items::where('vendor_id', '=', $vendor_id[0])->where('type', '=', $catid)->get();
          return response()->json([
             'menudata' => $menudata,
          ], 200);
-    } else {
+          } else {
         $menudata = Items::where('vendor_id', $vendor_id[0])->get();
       }
-
-
-    
-
-
-      $count = Addtocart::where('table_id', $id)->count();
+       $count = Addtocart::where('table_id', $id)->count();
       $category = Category::get();
-
-
-      return view('frontend.menu', compact('menudata', 'category', 'id', 'count'));
+     return view('frontend.menu', compact('menudata', 'category', 'id', 'count'));
    }
 
    public function addtocart(Request $req)

@@ -127,15 +127,17 @@
                    
                             <label class="form-label">Profile</label>
 
-                            <input wire:model.lazy="profile" type="file" accept="image/*"  onchange="loadfile(event)"class="form-control border border-2 p-2">
+                            <input type="file" wire:model.lazy="profile"  accept="image/*"  onchange="loadfile(event)" class="form-control border border-2 p-2">
 
                             @error('profile')
                             <p class='text-danger inputerror'>{{ $message }} </p>
                             @enderror
                         </div>
-                        <div class="mb-3 col-md-6">
-                        <img id="output" />
+                       @if($profile)
+                        <div class="mb-3 col-md-6" id="imgOutput">
+                           <img id="preview-image-before-upload" alt="profile" style="max-height: 250px;">
                         </div>
+                        @endif
 
                         <div class="mb-3 col-md-12">
 
@@ -212,9 +214,15 @@
 </div>
 
 <script>
-
 var loadfile = function(event){
-   var output = document.getElementById('output');
-   output.src = URL.createObjectURL(event.target.files[0]);
+
+    if (event.target.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#preview-image-before-upload').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(event.target.files[0]);
+     }
 }
+
 </script>

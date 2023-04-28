@@ -1,7 +1,8 @@
-<div>
-    <div class="card-body px-0 pb-2">
-
-        <div class=" me-3 my-3 text-end">
+<div class="container-fluid py-4">
+    <div class="row">
+    <div class="col-12">
+            <div class="card my-4">
+       <div class=" me-3 my-3 text-end">
             <a class="btn bg-gradient-dark mb-0" href="table"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
                 Table
             </a>
@@ -52,21 +53,24 @@
                         <td class="align-middle text-center text-sm">
                             <span class="text-secondary text-xs font-weight-bold barcode"><svg viewBox="0 0 100 100"> {!! file_get_contents($r->qrcode) !!}</svg></span>
                         </td>
-                        <td class="align-middle">
-                            <div class="text-center">
-                                <button type="submit" wire:click.prevent="delete({{$r->id}})" class="btn btn-lg bg-gradient-primary btn-lg w-50 mt-4 mb-0"><i class="material-icons">delete</i>
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div>
-
-                            <div class="text-center">
-                                <button type="submit" wire:click.prevent="edit({{$r->id}})" class="btn btn-lg bg-gradient-warning btn-lg w-50 mt-4 mb-0"><i class="material-icons">edit</i>
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div>
+                       
 
 
-                        </td>
+
+                        <td class="align-middle text-center text-sm">
+                                        <a rel="tooltip" class="btn btn-success btn-link" wire:click.prevent="edit({{ $r->id }})" href="" data-original-title="" title="">
+                                            <i class="material-icons">edit</i>
+                                            <div class="ripple-container"></div>
+                                        </a>
+
+                                        <button type="button" wire:click.prevent="delete({{ $r->id }})" class="btn btn-danger btn-link" data-original-title="" title="">
+                                            <i class="material-icons">delete</i>
+                                            <div class="ripple-container"></div>
+                                        </button>
+                         </td>
+                        
+
+                        
                     </tr>
 
                     @endforeach
@@ -86,7 +90,7 @@
                         Are You Sure You Want To Delete this table ?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" wire:click.prevent="deleteT({{@$r->id}})" data-bs-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-secondary" wire:click.prevent="deleteT({{$r->id}})" data-bs-dismiss="modal">Yes</button>
                         <button type="button" data-bs-dismiss="modal" class="btn btn-danger">No</button>
                     </div>
                 </div>
@@ -98,4 +102,7 @@
 </div>
 <div class="table-responsive p-0">
     {{ $allTables->links() }}
+</div>
+
+</div>
 </div>
