@@ -6,14 +6,17 @@
     </div>
     @endif
 
-    <div class=" me-3 my-3 text-end">
-        <a class="btn btn-primary mb-0" href="manageitem"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Manage
-            Item
-        </a>
+    <div class="container-fluid">
+        <div class="d-flex me-3 my-3 justify-content-between align-items-center">
+            <h5 class="font-weight-bolder mb-0 text-capitalize">Add Item</h5>
+            <a class="btn btn-primary mb-0" href="manageitem"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Manage
+                Item
+            </a>
+        </div>
     </div>
 
     <div class="container-fluid py-4">
-        <div class="row">
+        <div class="row" style="min-height:calc(100vh - 310px)">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">

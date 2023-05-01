@@ -163,6 +163,8 @@ footer {
 
 .card-title {
     position: relative;
+    margin-bottom: 25px;
+    color: #111;
 }
 
 .card-title:before {
@@ -175,7 +177,7 @@ footer {
     height: 3px;
     background-color: #e91e63;
     max-width: 60px;
-    opacity: 0.5;
+    opacity: 0.3;
     border-radius: 20px;
 }
 
@@ -230,6 +232,10 @@ footer {
     background-color: #f6f8fc;
 }
 
+.table tr:hover td {
+    background-color: #f6f8fc;
+}
+
 .table tr td {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
@@ -258,10 +264,48 @@ footer {
     font-weight: 600;
 }
 
+.navbar-vertical .navbar-nav > .nav-item .nav-link.active, .navbar-vertical .nav-item:hover .nav-link, .navbar-vertical .nav-item .nav-link {
+    border-radius: 0;
+}
+
+.dropdown .dropdown-menu.dropdown-menu-end.notificaion-area {
+    background-color: #fff !important;
+    top: 50px !important;
+    right: 15px !important;
+    box-shadow:0 0 20px rgba(89,102,122,0.1);
+    padding: 5px 0 !important;
+}
+
+.dropdown .dropdown-menu.dropdown-menu-end.notificaion-area li {
+    border-bottom: solid 1px #eee;
+    margin-bottom: 0 !important;
+}
+
+.dropdown .dropdown-menu.dropdown-menu-end.notificaion-area li:last-of-type {
+    border-bottom: 0;
+}
+
+.input-group.input-group-outline .form-label {
+    line-height: 3.2rem !important;
+    font-size: 13px;
+}
+
+.login-page {
+    background-color: #fff;
+}
+
+.login-page footer {
+    display: none;
+}
+
+.login-page .card {
+    box-shadow: none;
+}
+
 
 @media (min-width: 1200px) {
     .sidenav.fixed-start + .main-content {
-        margin-left: 17.5rem;
+        margin-left: 17rem;
         padding-left: 10px;
     }
 }

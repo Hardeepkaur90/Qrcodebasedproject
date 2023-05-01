@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none" id="navbarBlur"
     navbar-scroll="true">
-    <div class="container-fluid py-1 px-3">
+    <div class="container-fluid py-1 px-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
@@ -41,7 +41,7 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell-o cursor-pointer"></i>
                     </a>
-                    <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
+                    <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4 notificaion-area"
                         aria-labelledby="dropdownMenuButton">
                         <li class="mb-2">
                             <a class="dropdown-item border-radius-md" href="javascript:;">
@@ -54,7 +54,7 @@
                                             <span class="font-weight-bold">New message</span> from Laur
                                         </h6>
                                         <p class="text-xs text-secondary mb-0">
-                                            <i class="fa fa-clock me-1"></i>
+                                            <i class="fa fa fa-clock-o me-1"></i>
                                             13 minutes ago
                                         </p>
                                     </div>
@@ -73,7 +73,7 @@
                                             <span class="font-weight-bold">New album</span> by Travis Scott
                                         </h6>
                                         <p class="text-xs text-secondary mb-0">
-                                            <i class="fa fa-clock me-1"></i>
+                                            <i class="fa fa-clock-o me-1"></i>
                                             1 day
                                         </p>
                                     </div>
@@ -110,7 +110,7 @@
                                             Payment successfully completed
                                         </h6>
                                         <p class="text-xs text-secondary mb-0">
-                                            <i class="fa fa-clock me-1"></i>
+                                            <i class="fa fa-clock-o me-1"></i>
                                             2 days
                                         </p>
                                     </div>

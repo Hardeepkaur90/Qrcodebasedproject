@@ -2,10 +2,11 @@
 <!-- End Navbar -->
     <div class="container-fluid">
         <div class="row">
-            <div class= "me-3 my-3 text-end">
+            <div class="d-flex me-3 my-3 justify-content-between align-items-center">
+                <h5 class="font-weight-bolder mb-0 text-capitalize">Manage Item</h5>
                 <a class="btn btn-primary mb-0" href="additem"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Item</a>
             </div>
-            <div class="col-12">
+            <div class="col-12" style="min-height:calc(100vh - 260px)">
                 <div class="card my-4">
                     
                         @if(session()->has('message'))
