@@ -108,7 +108,7 @@
 
                 @foreach($category as $c)
 
-                <li data-active="#{{$c->name}}"><a data-toggle="tab" onclick="sort( '{{$c->id}}' )" href="JavaScript:void(0)">{{$c->name}}</a></li>
+                <li data-active="#{{$c->name}}"><a data-toggle="tab"  onkeypress="sort( '{{$c->id}}' )" href="JavaScript:void(0)">{{$c->name}}</a></li>
                 @endforeach
 
             </ul>
@@ -305,6 +305,8 @@
 
         function sort(catid) {
 
+            console.log("inside log");
+
             var url = window.location.href;
             var id = url.split("/").pop();
             console.log("table id", id);
@@ -336,6 +338,10 @@
                 }
             })
         }
+        $( "#search_item_in" ).change(function() 
+  {
+    console.log("yes");
+    });
 
         function search() {
 
