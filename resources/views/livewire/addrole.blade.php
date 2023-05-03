@@ -1,4 +1,4 @@
-<div>
+<div class="container-fluid">
     <div class="card-body">
         @if(session()->has('message'))
           <div class="alert alert-success">
@@ -6,11 +6,11 @@
           </div>
         @endif
         
-    <div class=" me-3 my-3 text-end">
-        <a class="btn bg-gradient-dark mb-0" href="managerole"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Manage
-            Role
-        </a>
-    </div>
+        <div class=" me-3 my-3 text-end">
+            <a class="btn bg-gradient-dark mb-0" href="managerole"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Manage
+                Role
+            </a>
+        </div>
         <form>
             <div class="mb-3">
                 <label class="form-label">Role Name</label>

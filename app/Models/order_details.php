@@ -10,6 +10,6 @@ class order_details extends Model
     use HasFactory;
 
     public function item_details(){
-        return $this->belongsTo('App\Models\items','order_id','id');
+        return $this->belongsTo('App\Models\Items','item_id','id');
     }
 }

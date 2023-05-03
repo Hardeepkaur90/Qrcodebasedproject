@@ -24,21 +24,21 @@
                 <div class="nav-wrapper position-relative end-0">
                     <ul class="nav nav-pills nav-fill p-1" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;"
+                            <a class="nav-link mb-0 px-0 py-2 active " data-bs-toggle="tab" href="javascript:;"
                                 role="tab" aria-selected="true">
                                 <i class="material-icons text-lg position-relative">home</i>
                                 <span class="ms-1">App</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab"
+                            <a class="nav-link mb-0 px-0 py-2 " data-bs-toggle="tab" href="javascript:;" role="tab"
                                 aria-selected="false">
                                 <i class="material-icons text-lg position-relative">email</i>
                                 <span class="ms-1">Messages</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab"
+                            <a class="nav-link mb-0 px-0 py-2 " data-bs-toggle="tab" href="javascript:;" role="tab"
                                 aria-selected="false">
                                 <i class="material-icons text-lg position-relative">settings</i>
                                 <span class="ms-1">Settings</span>
@@ -148,7 +148,7 @@
                             @enderror
                         </div>
                     </div>
-                    <button type="submit" class="btn bg-gradient-dark">Update</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </form>
                 
               @else
@@ -200,7 +200,7 @@
                             @enderror
                         </div>
                     </div>
-                    <button type="submit" class="btn bg-gradient-dark">Edit</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
                 </form>
               
               @endif

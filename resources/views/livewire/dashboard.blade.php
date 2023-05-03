@@ -1,9 +1,9 @@
 <div>
     <!-- Navbar -->
     <!-- End Navbar -->
-    <div style="display:flex">
+    <div style="display:flex; min-height:calc(100vh - 182px)" class="py-4 dashboard-row">
     <div class="container-fluid py-4">
-        <div class="card text-center" style="width: 18rem;">
+        <div class="card text-left">
             <div class="card-body">
                 <h5 class="card-title">Total Dishes</h5>
                 <p class="card-text">Total dishes for Today is: {{ \App\Models\Items::count() }}</p>
@@ -15,7 +15,7 @@
 
     @if(@Auth::user()->roles->role_name === 'superadmin' )
     <div class="container-fluid py-4">
-        <div class="card text-center" style="width: 18rem;">
+        <div class="card text-left">
             <div class="card-body">
                 <h5 class="card-title">Total Restaurants</h5>
                 <p class="card-text">Total sale for Today is: {{ \App\Models\User::where('role',4)->count() }}</p>
@@ -25,7 +25,7 @@
     </div>
     @endif
     <div class="container-fluid py-4">
-        <div class="card text-center" style="width: 18rem;">
+        <div class="card text-left">
             <div class="card-body">
                 <h5 class="card-title">Total Orders</h5>
                 <p class="card-text">Total orders for Today is:{{ \App\Models\Order::count() }}</p>

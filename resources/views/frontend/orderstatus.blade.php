@@ -13,7 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/custom.css" />
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/customfrontend.css" />
 </head>
 
 <body>
@@ -30,14 +30,7 @@
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav mr-auto">
-
-                                    <li class="nav-item login-btn">
-                                        <a class="nav-link" onclick="homefun()" href="JavaScript:void(0)">Home</a>
-                                    </li>
-                                  
-                                </ul>
-
+                               
                             </div>
                         </nav>
                     </div>
@@ -58,43 +51,52 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div class="cart-box">
+                    <div class="cart-box">
+
+                        <h5>Your Order status</h5>
+
+
                         <table width="100%" cellspacing="0" cellpadding="0" class="side-cart">
-                            <tr>
-                                <th>Your Order status</th>
 
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="seperator"></div>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td>S.No</td>
-                                <td>Item Name</td>
-                                <td>Qty</td>
-                                <td>Order Status</td>
-                                <td>Action</td>
-                                
-                            </tr>
 
-                          @foreach($orderdata as $data)
-                          <tr>
-                             <td>{{$data->id}}</td> 
-                                 <td>{{$data->order_details[0]->item_details->title}}</td> 
-                              <td>{{$data->status}}</td> 
-                            
-                              
-                          </tr>
-                          
-                          @endforeach
-                            
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+
+                                    <th>Item Name</th>
+
+                                    <th>Image</th>
+
+                                    <th>Qty</th>
+
+                                    <th>Order Status</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1; ?>
+                                @foreach($orderdata as $data)
+
+                                <tr>
+                                    <td>{{$i}}</td>
+                                    <td>{{$data->item_name}}</td>
+                                    <!-- <td><img src="{{ Storage::url($data->item_name) }}" alt="test" class="img-fluid"></td> -->
+                                    <td>{{$data->table_id}}</td>
+                                    <td>{{$data->qty}}</td>
+                                    <td>{{$data->status}}</td>
+                                    <td><button class="btn btn-success">Complete</button></td>
+
+                                </tr>
+                                <?php $i++; ?>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
-                
+
                 </div>
-               
+
             </div>
         </div>
     </div>
@@ -348,4 +350,3 @@
 </body>
 
 </html>
-

@@ -1,11 +1,15 @@
-<div class="container-fluid py-4">
+<div class="container-fluid">
     <div class="row">
-    <div class="col-12">
-            <div class="card my-4">
-       <div class=" me-3 my-3 text-end">
-            <a class="btn bg-gradient-dark mb-0" href="table"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
+    <div class="d-flex me-3 my-3 justify-content-between align-items-center">
+        <h5 class="font-weight-bolder mb-0 text-capitalize">Manage Table</h5>
+        <a class="btn btn-primary mb-0" href="table"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
                 Table
             </a>
+    </div>
+    <div class="col-12" style="min-height:calc(100vh - 260px)">
+            <div class="card my-4">
+       <div class=" me-3 my-3 text-end">
+           
         </div>
         @if(session()->has('message'))
 
@@ -18,17 +22,17 @@
             <table class="table align-items-center mb-0">
                 <thead>
                     <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 custom-font">
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4 custom-font">
                             S.No</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                             Table Name</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 custom-font">
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                             Description</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 custom-font">
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                             Qrcode</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 custom-font">
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                             Actions</th>
-                        <th class="text-secondary opacity-7"></th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +40,7 @@
                     @foreach($allTables as $r)
                     <tr>
                         <td>
-                            <div class="d-flex px-4 py-1">
+                            <div class="d-flex ps-3 py-1">
                                 <div class="d-flex flex-column justify-content-center">
                                     <h6 class="mb-0 text-sm">{{ (($allTables->currentPage() * 2) - 2) + $loop->iteration  }}</h6>
 
@@ -44,20 +48,20 @@
                             </div>
                         </td>
                         <td>
-                            <p class="text-xs font-weight-bold mb-0">{{$r->name}}</p>
+                            <div class="d-flex flex-column justify-content-center"><h6 class="mb-0 text-sm">{{$r->name}}</h6></div>
 
                         </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="text-xs font-weight-bold mb-0">{{$r->description}}</span>
+                        <td class="align-middle text-sm">
+                            <div class="d-flex flex-column justify-content-center"><span class="mb-0">{{$r->description}}</span></div>
                         </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="text-secondary text-xs font-weight-bold barcode"><svg viewBox="0 0 100 100"> {!! file_get_contents($r->qrcode) !!}</svg></span>
+                        <td class="align-middle text-sm">
+                            <div class="d-flex flex-column justify-content-center"><span class="text-secondary text-xs barcode"><svg viewBox="0 0 100 100"> {!! file_get_contents($r->qrcode) !!}</svg></span></div>
                         </td>
                        
 
 
 
-                        <td class="align-middle text-center text-sm">
+                        <td class="align-middle text-sm">
                                         <a rel="tooltip" class="btn btn-success btn-link" wire:click.prevent="edit({{ $r->id }})" href="" data-original-title="" title="">
                                             <i class="material-icons">edit</i>
                                             <div class="ripple-container"></div>

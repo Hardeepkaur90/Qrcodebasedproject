@@ -67,8 +67,10 @@ Route::post('/charge',[paymentController::class,'charge']);
 Route::get('/success',[paymentController::class,'success']);
 Route::get('/error',[paymentController::class,'error']);
 
-// Route::get('/search-item',[menuController::class,'searchinMe'])->name('search-item');
 
+Route::post('/search-item',[menuController::class,'searchitem'])->name('search-item');
+
+Route::get('your-order/{ip}',[menuController::class,'orderStatus']);
 
 
 // livewire front end components starts
