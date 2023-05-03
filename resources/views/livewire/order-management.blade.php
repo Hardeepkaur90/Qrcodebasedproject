@@ -1,35 +1,39 @@
-
-<div class="card-body px-0 pb-2">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12" style="min-height:calc(100vh - 260px)">
+            <div class="card my-4">
+                
+            <div class="card-body px-0 pb-2">
 
                             <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4 custom-font">
                                                 S.No</th>
                                                  <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                                Item Image </th>
                                                 <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                                 Order Number</th>
                                                 <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                                 Table Number</th>
                                                <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                                 Payment-Id </th>
                                                <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                                 Item Name </th>
                                                 <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                                 Status</th>
                                                 <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                                 Action</th>
-                                            <th class="text-secondary opacity-7"></th>
+                    
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -83,7 +87,7 @@
                                         <div class="d-flex flex-column justify-content-center">
                                             
                                           
-                                              <h6 class="mb-0 text-sm"> {{ ($r->item_name)}}</h6>
+                                              <h6 class="mb-0 text-sm"> {{ ($r->item_name) }}</h6>
                                             
                                           
                                           
@@ -95,7 +99,7 @@
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
                                          
-                                                <select  wire:change.prevent="change({{ $r->id}},{{$r->item_id }},$event.target.value,{{$r->order_id}})">
+                                                <select class="form-select custom-form-select" wire:change.prevent="change({{ $r->id}},{{$r->item_id }},$event.target.value,{{$r->order_id}})">
                                                    <option class="form-control border border-2 p-2" value="0" {{ $r->status == 0 ? 'selected="selected"' : '' }}>In-pending</option>
                                                    <option class="form-control border border-2 p-2" value ="1" {{ $r->status == 1 ? 'selected="selected"' : '' }}>In-progress</option>
                                                    <option class="form-control border border-2 p-2" value="2" {{ $r->status == 2 ? 'selected="selected"' : '' }}>In-completed</option>
@@ -133,3 +137,8 @@
                             </div>
                     
                         </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -637,6 +637,35 @@ a.social-icons:hover {
     padding-left: 10px;
 }
 
+.cart-icon {
+    display: inline-block;
+    position: relative;
+    color: var(--black);
+    font-size: 15px;
+    padding: 5px 13px !important;
+    margin-top: 10px;
+}
+
+.cart-icon:hover {
+    color: var(--black);
+}
+
+.cart-icon #items-count {
+    position: absolute;
+    top: -4px;
+    right: 2px;
+    background: var(--red);
+    color: var(--white);
+    font-size: 10px;
+    padding: 0 2px;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    line-height: 16px;
+    text-align: center;
+    font-weight: 700;
+  }
+
 
 /* .side-cart input[type="radio"] {
     display: none;
@@ -713,7 +742,7 @@ a.social-icons:hover {
     .navbar-toggler {
         border: 0;
         position: absolute;
-        right: 0;
+        right: 50px;
         top: 6px;
     }
     .navbar-toggler-icon {
@@ -731,6 +760,7 @@ a.social-icons:hover {
         width: 100%;
         padding-top: 20px;
         background-color: var(--yellow);
+        box-shadow: 0 7px 7px 0px rgba(0,0,0,0.2);
     }
     .navbar {
         position: static;
@@ -760,6 +790,10 @@ a.social-icons:hover {
     }
     .food-wrapper .nav-tabs li a, .food-wrapper .nav-tabs li.active a {
         padding: 10px;
+    }
+    .navbar-nav {
+        left: 15px;
+        top: 37px;
     }
 }
 
@@ -796,5 +830,14 @@ a.social-icons:hover {
     }
     .howit-works-wrapper {
         padding: 35px 0;
+    }
+    .product-remove {
+        padding-left: 15px;
+    }
+    .product-remove .name {
+        display: none;
+    }
+    .product-thumbnail {
+        width: 160px;
     }
 }

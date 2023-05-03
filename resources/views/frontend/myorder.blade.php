@@ -137,10 +137,10 @@
                             <!-- <a href="#" class="checkout-button">Proceed to checkout</a> -->
                             <button class="checkout-button" type="submit">Place Order</button>
 
-                            <div>
-                                <input type="radio" name="payment_method[]" value="cash">Cash On Counter
-                                <input type="radio" name="payment_method[]" value="online"> Online payment
-                                
+                            <div style="margin-top:30px">
+                                <label><input type="radio" name="payment_method[]" value="cash"> Cash On Counter</label>
+                                <br>
+                                <label style="margin-top:10px"><input type="radio" name="payment_method[]" value="online"> Online payment</label>
                             </div>
                         </form>
                     </div>
