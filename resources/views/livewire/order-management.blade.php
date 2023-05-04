@@ -23,7 +23,7 @@
                                                 Table Number</th>
                                                <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
-                                                Payment-Id </th>
+                                                 Payment Method </th>
                                                <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                                 Item Name </th>
@@ -45,7 +45,7 @@
                                
                                 @foreach($orders as $key => $r)
                                 
-                                }
+                                
                                  <tr>
                                     <td>
                                         <div class="d-flex ps-3 py-1">
@@ -75,10 +75,17 @@
                                         </div>
                                     </td>
                                    <td>
+                                    @if(($r->payment_id == ''))
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $r->payment_id}}</h6>
+                                            <h6 class="mb-0 text-sm">offline</h6>
 
                                         </div>
+                                        @else
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 text-sm">online</h6>
+
+                                        </div>
+                                        @endif
                                     </td>
 
                                            <td>
@@ -100,25 +107,15 @@
                                         <div class="d-flex flex-column justify-content-center">
                                          
                                                 <select class="form-select custom-form-select" wire:change.prevent="change({{ $r->id}},{{$r->item_id }},$event.target.value,{{$r->order_id}})">
-                                                   <option class="form-control border border-2 p-2" value="0" {{ $r->status == 0 ? 'selected="selected"' : '' }}>In-pending</option>
+                                                   <option class="form-control border border-2 p-2" value="0" {{ $r->status == 0 ? 'selected="selected"' : '' }}>pending</option>
                                                    <option class="form-control border border-2 p-2" value ="1" {{ $r->status == 1 ? 'selected="selected"' : '' }}>In-progress</option>
-                                                   <option class="form-control border border-2 p-2" value="2" {{ $r->status == 2 ? 'selected="selected"' : '' }}>In-completed</option>
+                                                   <option class="form-control border border-2 p-2" value="2" {{ $r->status == 2 ? 'selected="selected"' : '' }}>completed</option>
                                                 </select>
                                          
-                                         
-                                         
-                                             <!--<select wire:model="status" wire:change.prevent="change({{ $r->id}},{{$r->item_id }})">-->
-                                             <!--      <option class="form-control border border-2 p-2" value="0" {{ $r->status == 0 ? 'selected="selected"' : '' }}>In-pending</option>-->
-                                             <!--      <option class="form-control border border-2 p-2" value ="1" {{ $r->status == 1 ? 'selected="selected"' : '' }}>In-progress</option>-->
-                                             <!--      <option class="form-control border border-2 p-2" value="2" {{ $r->status == 2 ? 'selected="selected"' : '' }}>In-completed</option>-->
-                                             <!--   </select>-->
                                         </div>
                                     </td>
                                     <td class="align-middle">
-                                        <!--<a rel="tooltip" class="btn btn-success btn-link" wire:click.prevent="editOrder({{ $r->id }})" href="" data-original-title="" title="">-->
-                                        <!--    <i class="material-icons">edit</i>-->
-                                        <!--    <div class="ripple-container"></div>-->
-                                        <!--</a>-->
+                                       
 
                                         <button type="button" wire:click.prevent="delete({{ $r->id }})" class="btn btn-danger btn-link" data-original-title="" title="">
                                             <i class="material-icons">delete</i>

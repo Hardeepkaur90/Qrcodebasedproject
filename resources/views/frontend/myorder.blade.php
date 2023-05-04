@@ -134,21 +134,44 @@
                     </div>
 
                     <div id="paypal-button-container">
-                        <form action="{{url('charge')}}" method="post">
 
-                            {{ csrf_field() }}
-                            <input type="hidden" name="table_id" value="{{request()->id}}">
+                    <button class="checkout-button" id="placeorder" type="submit">Place Order</button>
+                    <div id="payment_options">
+                         
+                    <div>
+                    <form action="{{url('charge')}}" method="post">
+
+                        {{ csrf_field() }}
+                        <input type="hidden" name="table_id"  value="{{request()->id}}">
+                        <input type="hidden" name="value" value="{{ $totalprice }}">
+                        <button class="checkout-button" id="placeorder" type="submit">Pay Online</button>
+                       
+                     </form>
+                    </div>
+                    <div>
+                    <form action="{{url('paycash')}}" method="post">
+
+                                {{ csrf_field() }}
+                                <input type="hidden" name="table_id"  value="{{request()->id}}">
+                                <input type="hidden" name="value" value="{{ $totalprice }}">
+                                <button class="checkout-button" id="placeorder" type="submit">Pay Cash</button>
+
+                    </form>
+                    </div>
+
+                    </div>
+                       
+
+                       
+                            <!-- <input type="hidden" name="table_id"  value="{{request()->id}}">
                             <input type="hidden" name="value" value="{{ $totalprice }}">
-                            <!-- <a class="checkout-button"  href="JavaScript:void(0)">Proceed to checkout</a> -->
-                            <!-- <a href="#" class="checkout-button">Proceed to checkout</a> -->
                             <button class="checkout-button" id="placeorder" type="submit">Place Order</button>
-
-                            <div id="payment_options">
-                                <input type="radio" name="payment_method[]" value="cash">Cash On Counter
-                                <input type="radio" name="payment_method[]" value="online"> Online payment
+                            <div style="padding: 25px;"id="payment_options">
+                                <input type="radio" name="payment_method" id="cashpayment" value="cash">Cash On Counter
+                                <input type="radio" name="payment_method" id ="onlinepament" value="online"> Online payment
 
                             </div>
-                        </form>
+                       -->
                     </div>
                 </div>
             </div>
@@ -236,6 +259,38 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script>
         $(document).ready(function() {
+           
+         $('#payment_options').hide();
+
+         $('#placeorder').click(function(){
+            $('#payment_options').show();
+            $('#placeorder').hide();
+         })
+
+         $('#onlinepament').click(function(){
+             
+            $.ajax({
+                    type: 'POST',
+                    url: "{{ url('/change-qty')}}",
+                    data: {
+                        table_id: tablenumber,
+                        item_id: cartid,
+                        qty: quentity,
+
+                        '_token': '{{csrf_token()}}'
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(e) {
+                        alert(e.error);
+                    },
+                });
+         })
+
+         $('#cashpayment').click(function(){
+            alert("cashpayment");
+         })
 
             $('.increament_btn').click(function(e) {
                 e.preventDefault();

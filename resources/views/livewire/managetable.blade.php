@@ -94,7 +94,7 @@
                         Are You Sure You Want To Delete this table ?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" wire:click.prevent="deleteT({{$r->id}})" data-bs-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-secondary" wire:click.prevent="deleteT({{@$r->id}})" data-bs-dismiss="modal">Yes</button>
                         <button type="button" data-bs-dismiss="modal" class="btn btn-danger">No</button>
                     </div>
                 </div>

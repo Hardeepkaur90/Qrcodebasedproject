@@ -53,46 +53,55 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="cart-box">
 
-                        <h5>Your Order status</h5>
+                        <h2 style="margin-bottom: 20px;">Your Order status</h2>
+
+                        <div class="table-responsive">
+
+                            <table width="100%" cellspacing="0" cellpadding="0" class="order-status-table">
 
 
-                        <table width="100%" cellspacing="0" cellpadding="0" class="side-cart">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
 
+                                        <th>Item Name</th>
 
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
+                                        <th>Image</th>
+                                        <th>Table No</th>
+                                        <th>Qty</th>
 
-                                    <th>Item Name</th>
+                                        <th>Order Status</th>
 
-                                    <th>Image</th>
-                                    <th>Table No</th>
-                                    <th>Qty</th>
+                                        <th>Action</th>
 
-                                    <th>Order Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach($orderdata as $data)
 
-                                    <th>Action</th>
+                                    <tr>
+                                        <td>{{$i}}</td>
+                                        <td>{{$data->item_name}}</td>
+                                        <td><img src="{{ Storage::url($data->item_details->image) }}" alt="test" height="50" width="50" class="img-fluid"></td>
+                                        <td>{{$data->table_id}}</td>
+                                        <td>{{$data->qty}}</td>
+                                        @if($data->status == 0)
+                                        <td>Pending</td>
+                                        @elseif($data->status == 1)
+                                        <td>in-progress</td>
+                                        @elseif($data->status == 2)
+                                        <td>completed</td>
+                                        @endif
+                                        <td><button class="btn btn-success">Complete</button></td>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach($orderdata as $data)
+                                    </tr>
+                                    <?php $i++; ?>
+                                    @endforeach
+                                </tbody>
+                            </table>
 
-                                <tr>
-                                    <td>{{$i}}</td>
-                                    <td>{{$data->item_name}}</td>
-                                    <td><img src="{{ Storage::url($data->item_details->image) }}" alt="test" height="50" width="50" class="img-fluid"></td>
-                                    <td>{{$data->table_id}}</td>
-                                    <td>{{$data->qty}}</td>
-                                    <td>{{$data->status}}</td>
-                                    <td><button class="btn btn-success">Complete</button></td>
-
-                                </tr>
-                                <?php $i++; ?>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        </div>
                     </div>
 
                 </div>
