@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12" style="min-height:calc(100vh - 260px)">
+        <div class="col-12" style="min-height:calc(100vh - 200px)">
             <div class="card my-4">
                 
             <div class="card-body px-0 pb-2">
