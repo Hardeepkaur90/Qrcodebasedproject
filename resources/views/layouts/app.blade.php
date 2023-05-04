@@ -8,9 +8,9 @@
             </div>
         </div>
         @if (in_array(request()->route()->getName(),['static-sign-in', 'login','password.forgot','reset-password']))
-        <main class="main-content  mt-0">
-            <div class="page-header page-header-bg align-items-start min-vh-100">
-                    <span class="mask bg-gradient-dark opacity-6"></span>
+        <main class="main-content mt-0 login-page">
+            <div class="page-header align-items-center min-vh-100">
+                    <!-- <span class="mask bg-gradient-dark opacity-6"></span> -->
             {{ $slot }}
             <x-footers.guest></x-footers.guest>
              </div>
@@ -40,7 +40,7 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <x-navbars.navs.auth></x-navbars.navs.auth>
 
-        {{ $slot }}
+        <div class="mheight-500">{{ $slot }}</div>
 
         <x-footers.auth></x-footers.auth>
     </main>

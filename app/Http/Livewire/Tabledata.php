@@ -25,22 +25,26 @@ class Tabledata extends Component
     public function store()
     {
 
+
        $validatedData = $this->validate([
             'name' => 'required',
             'description' => 'required',
 
         ]);
-      
-        $path = public_path('assets/qrcode/' . time() . '.svg');
+       $validatedData['rest_id'] =Auth()->user()->id;
+      $table_data=Table::create($validatedData);
+
+
+    $path = public_path('assets/qrcode/' . time() . '.svg');
         $image = QrCode::size(100)
-            ->generate("https://www.google.com/", $path);
+            ->generate("http://127.0.0.1:8000/dispalymenu/$table_data->id", $path);
 
-        $validatedData['rest_id'] =Auth()->user()->id;
-        $validatedData['qrcode'] =$path;
-
-     
+        Table::where('id',$table_data->id)
+       ->update([
+           'qrcode' => $path
+        ]);
        
-     Table::create($validatedData);
+
         session()->flash('message','Table Added Successfully');
         $this->resetAll();
         $this->emit("student added");

@@ -64,10 +64,13 @@ class Additem extends Component
             'status' => 'required',
             'discount' => 'required'
         ]);
+       
+        $image= $this->image->store('imagetesting', 'public');
 
-
-        $image = $this->image->store('files','public');
+        // $image = $this->image->store('files','public');
         $validatedData['image'] = $image;
+
+      
         Items::create($validatedData);
         session()->flash('message','item Saved successfully');
         $this->resetAll();

@@ -29,11 +29,17 @@
             </div>
             @error('image') <span class=" text-danger">{{ $message }}</span> @enderror
             <div class="mb-3">
-                <select class="form-control border border-2 p-2" wire:model="type"   id="category">
+                <!-- <select class="form-control border border-2 p-2" wire:model="type"   id="category">
                     <option hidden>Choose Category</option>
                     <option value="veg">VEG</option>
                     <option value="non-veg">NON-VEG</option>
-                </select>
+                </select> -->
+                <select class="form-control border border-2 p-2" wire:model="type" id="category">
+                            <option hidden>Choose Category</option>
+                            @foreach ($category as $cat)
+                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                            @endforeach
+                        </select>
 
 
             </div>

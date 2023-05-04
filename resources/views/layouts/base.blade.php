@@ -60,6 +60,8 @@
     <link id="pagestyle" href="{{ asset('assets') }}/css/custom.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     @livewireStyles
+    
+@livewireScripts
 </head>
 <body class="g-sidenav-show {{ Route::currentRouteName() == 'rtl' ? 'rtl' : '' }} {{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'static-sign-up'  ? '' : 'bg-gray-200' }}">
 
@@ -131,6 +133,20 @@ $('#confirmation-modal').modal('show');
 })
 
 
+window.addEventListener('delete_model',event=>{
+
+$('#confirmation-modal-chef').modal('show');
+})
+
+//chef delete pop up show
+window.addEventListener('delete_chef_model',event=>{
+
+$('#confirmation-modal-chef').modal('show');
+})
+
+
+
+
 
 });
 </script>
@@ -138,6 +154,7 @@ $('#confirmation-modal').modal('show');
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{ asset('assets') }}/js/material-dashboard.min.js?v=3.0.0"></script>
-@livewireScripts
+
+
 </body>
 </html>

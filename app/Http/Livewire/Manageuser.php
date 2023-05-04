@@ -10,7 +10,7 @@ class Manageuser extends Component
     public function render()
     {
 
-        $users = User::get();
+        $users = User::where('role',4)->get();
         return view('livewire.manageuser', compact('users'));
     }
 

@@ -4,12 +4,14 @@ namespace App\Http\Livewire\ExampleLaravel;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Models\role;
 use App\Models\User;
+use Livewire\WithFileUploads;
 use Validator;
 
 use Livewire\Component;
 
 class Addemp extends Component
 {
+    use WithFileUploads;
     public function render()
     {   $users = User::where('role',10)->get();
         $category = role::get();
@@ -33,9 +35,10 @@ class Addemp extends Component
     }
 
     public function store(){
-        
+    
         $this->rest_id=1;
 
+       
 
         $validatedData = $this->validate([
          'name'=>['required'],
@@ -47,6 +50,10 @@ class Addemp extends Component
          'password'=>['required']
         
      ]);
+    $this->profile = $this->profile->store('profiles', 'public');
+       
+     $validatedData['profile']=$this->profile;
+   
      User::create($validatedData);
      session()->flash('message','User added successfully');
      $this->Reset();

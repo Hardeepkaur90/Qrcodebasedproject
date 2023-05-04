@@ -11,6 +11,7 @@ class Editcategory extends Component
     public $name;
     public $image;
     public $status;
+    public $image1;
 
 
     public $edit_cat_id;
@@ -22,6 +23,7 @@ class Editcategory extends Component
 
         $this->name = $existingItem->name;
         $this->image = $existingItem->image;
+        $this->image1 = $existingItem->image;
         $this->status = $existingItem->status;
       
     }
@@ -34,14 +36,11 @@ class Editcategory extends Component
            
         ]);
 
-        if($this->image){
-            $image = $this->image->store('category','public');
-            $data['image'] =  $image;
-        }
-
-      
-        
-
+        $url=null;
+        if($this->image != $this->image1){
+            $url = $this->image->store('category','public');
+          }
+        $data['image'] = $url ? $url: $this->image1;
         $data['name'] = $this->name;
         $data['status'] = $this->status;
        

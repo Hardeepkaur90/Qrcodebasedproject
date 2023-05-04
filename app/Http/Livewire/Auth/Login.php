@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Livewire\Auth;
-
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\Auth;
 class Login extends Component
 {
 
@@ -29,6 +29,7 @@ class Login extends Component
     
     public function store()
     {
+       
         $attributes = $this->validate();
 
         if (! auth()->attempt($attributes)) {
@@ -37,9 +38,16 @@ class Login extends Component
             ]);
         }
 
-        session()->regenerate();
+         $status= Auth::user()->status;
 
-        return redirect('/dashboard');
+         if($status == 'Active'){
+            session()->regenerate();
+            return redirect('/dashboard');
+         }else{
+            return Redirect::back()->withErrors(['msg' => 'Your status is not active']);
+         }
+
+      
 
     }
 }

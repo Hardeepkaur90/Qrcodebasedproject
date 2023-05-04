@@ -4,54 +4,74 @@ namespace App\Http\Livewire\ExampleLaravel;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class UserProfile extends Component
 {
+    use WithFileUploads;
 
-    public User $user;
+    public $user;
+    public $profile;
+    public $name;
+    public $email;
+    public $phone;
+    public $about;
+    public $location;
+    public $image;
+    public $state;
 
-    protected function rules(){
+    protected function rules()
+    {
         return [
-            'user.name' => 'required',
-            'user.email' => 'required|email|unique:users,email,'.$this->user->id,
-            'user.phone' => 'required|max:10',
-            'user.about' => 'required:max:150',
-            'user.location' => 'required'
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $this->user->id,
+            'phone' => 'required|max:10',
+            'profile' => 'image|max:1024',
+            'about' => 'required:max:150',
+            'location' => 'required'
         ];
     }
 
-    public function mount() { 
+    public function mount()
+    {
         $this->user = auth()->user();
+        $this->profile = $this->user->profile;
+        $this->name = $this->user->name;
+        $this->email = $this->user->email;
+        $this->phone = $this->user->phone;
+        $this->about = $this->user->about;
+        $this->location = $this->user->location;
+        $this->state = '';
     }
 
-    public function updated($propertyName){
 
-        $this->validateOnly($propertyName);
-    }
-    
+
     public function update()
     {
-        $this->validate();
+       $data['name'] =  $this->name;
+        $data['email'] =  $this->email;
+        $data['phone'] =  $this->phone;
+        $data['about'] =  $this->about;
+        $data['location'] =  $this->location;
 
-        if (env('IS_DEMO') && $this->user->id == 1){
-            
-            if( auth()->user()->email == $this->user->email ){
+       
+        if ($this->profile != $this->user->profile) {
+            $this->image = $this->profile->store('profiles', 'public');
                 
-                $this->user->save();
-                return back()->withStatus('Profile successfully updated.');
-            }
-            
-            return back()->with('demo', "You are in a demo version, you can't change the admin email." );
-        };
-
-        $this->user->save();
+        $data['profile'] = $this->image;
+        }
+   
+        $data = User::where('id', $this->user->id)->update($data);
         return back()->withStatus('Profile successfully updated.');
-    
-}
+    }
 
-public function render()
-{
-    return view('livewire.example-laravel.user-profile');
-}
+    public function render()
+    {
+        return view('livewire.example-laravel.user-profile');
+    }
 
+    public function edit(){
+        $this->state = 'view';
+       return back();
+    }
 }

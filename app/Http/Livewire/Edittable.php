@@ -34,7 +34,7 @@ class Edittable extends Component
      ]);
 
      $data['name']=$this->name;
-     $data['description']=$this->name;
+     $data['description']=$this->description;
      $data['rest_id']=Auth()->user()->id;
 
      $path = public_path('assets/qrcode/' . time() . '.svg');
