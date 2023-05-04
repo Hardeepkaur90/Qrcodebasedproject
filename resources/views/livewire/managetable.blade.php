@@ -13,9 +13,11 @@
         </div>
         @if(session()->has('message'))
 
+       
         <div class="alert alert-danger">
             {{session('message')}}
         </div>
+       
 
         @endif
         <div class="table-responsive p-0">
@@ -32,7 +34,6 @@
                             Qrcode</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                             Actions</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,7 +95,7 @@
                         Are You Sure You Want To Delete this table ?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" wire:click.prevent="deleteT({{$r->id}})" data-bs-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-secondary" wire:click.prevent="deleteT({{@$r->id}})" data-bs-dismiss="modal">Yes</button>
                         <button type="button" data-bs-dismiss="modal" class="btn btn-danger">No</button>
                     </div>
                 </div>
