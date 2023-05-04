@@ -66,7 +66,7 @@
                                     <th>Item Name</th>
 
                                     <th>Image</th>
-
+                                    <th>Table No</th>
                                     <th>Qty</th>
 
                                     <th>Order Status</th>
@@ -82,7 +82,7 @@
                                 <tr>
                                     <td>{{$i}}</td>
                                     <td>{{$data->item_name}}</td>
-                                    <!-- <td><img src="{{ Storage::url($data->item_name) }}" alt="test" class="img-fluid"></td> -->
+                                    <td><img src="{{ Storage::url($data->item_details->image) }}" alt="test" height="50" width="50" class="img-fluid"></td>
                                     <td>{{$data->table_id}}</td>
                                     <td>{{$data->qty}}</td>
                                     <td>{{$data->status}}</td>

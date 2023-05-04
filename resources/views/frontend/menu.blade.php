@@ -15,7 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="style.css" />
-  
+
     <link rel="stylesheet" href="{{ asset('assets') }}/css/customfrontend.css" />
 </head>
 
@@ -26,34 +26,38 @@
         <div class="container">
             <div class="row">
                 <div class="d-flex justify-content-between">
+
+
                     <div class="logo"><a href="JavaScript:void(0)"><img class="img-fluid" alt="" src="{{ url('/assets/images/logo.png')}}" /></a></div>
-                    <div class="navbar-menu d-flex" id="open-navbar1">
+                    <div class="navbar-menu" id="open-navbar1">
                         <nav class="navbar navbar-expand-lg navbar-light">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
+
+
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Home</a>
+                                        <a class="nav-link" href="#">About Us</a>
                                     </li>
-                                    <!-- <li class="nav-item">
+                                    <li class="nav-item">
                                         <a class="nav-link" href="#">Contact Us</a>
                                     </li>
                                     <li class="nav-item login-btn">
                                         <a class="nav-link" href="#">Login</a>
                                     </li>
                                     <li class="nav-item">
+
                                         <a class="nav-link position-relative" href="/my-cart/{{$id}}">
                                             <span><i class="fa fa-shopping-cart" aria-hidden="true"></i><span id="items-count" class="fc-count">{{$count}}</span></span>
                                         </a>
-                                    </li> -->
+
+                                    </li>
                                 </ul>
+
                             </div>
                         </nav>
-                        <a class="cart-icon" href="/my-cart/{{$id}}">
-                            <span><i class="fa fa-shopping-cart" aria-hidden="true"></i><span id="items-count" class="fc-count">{{$count}}</span></span>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -81,7 +85,7 @@
                                     <input type="text" name="search_item" id="search_item" class="form-control searchbar-input" value="{{ old('search_item') }}" placeholder="Search for dishes or cuisines">
                                     <span class="input-group-addon">
                                         <button type="submit" class="search-btn" id="basic-addon2">
-                                            <span class="">Search</span>
+                                            <span class="hidden-xs">Search</span>
                                         </button>
                                     </span>
                                 </div>
@@ -104,21 +108,19 @@
             <ul class="nav nav-tabs">
 
                 @foreach($category as $c)
-
-                <li data-active="#{{$c->name}}"><a data-toggle="tab"  onkeypress="sort( '{{$c->id}}' )" href="JavaScript:void(0)">{{$c->name}}</a></li>
+                <li data-active="#{{$c->name}}"><a data-toggle="tab" onclick="sort( '{{$c->id}}' )" href="JavaScript:void(0)">{{$c->name}}</a></li>
                 @endforeach
 
             </ul>
             <div class="tab-content">
                 <div id="pizzas" class="tab-pane fade in active">
-                    <div class="row">
-                        @foreach($menudata as $m)
+                    <div class="row" id="alldata" >
+                      
+                       @foreach($menudata as $m)
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="cs-card mb-5 cs-product-card">
                                 <div class="card-image" style="background-image:url('{{ Storage::url($m->image) }}')"></div>
-
-
-                                <div class="cs-card-content clearfix">
+                                    <div class="cs-card-content clearfix">
                                     <div class="pull-left">
                                         <h4 title="Margherita "> {{$m->title}}</h4>
                                         <p>${{$m->price}}</p>
@@ -130,7 +132,16 @@
                                             <input type="hidden" id="selected_menu_id856766" value="21">
                                             <input type="hidden" id="selected_item_cost856766" value="200.00">
                                         </form>
-                                        <a onclick="addtocart('{{$m->id}}')" class="btn btn-sm btn-round btn-primary card-btn">Add to cart</a>
+                                 
+                                        @if(in_array($m->id, $mycart))
+                                        <a onclick="addtocart('{{$m->id}}')" class="btn btn-sm btn-round test btn-success card-btn">Add to cart
+                                       </a>
+                                       @else
+                                       <a onclick="addtocart('{{$m->id}}')" class="btn btn-sm btn-round test5 btn-primary card-btn">Add to cart
+                                       </a>
+
+                                       @endif
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -139,6 +150,8 @@
 
 
                     </div>
+                    <div id="filterdata" class="row">
+                        </div>
                 </div>
             </div>
 
@@ -273,6 +286,45 @@
 
 
 
+        $(document).ready(function() {
+
+            fetch_items_list();
+
+            function fetch_items_list(query = '') {
+
+                var url = window.location.href;
+                var id = url.split("/").pop();
+                $.ajax({
+
+                    url: "{{ route('search-item') }}",
+                    method: "post",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        query: query,
+                        id: id,
+                        // catid:null,
+
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log('data', data);
+
+                        $('#alldata').hide();
+                        $('#filterdata').show();
+                        $('#filterdata').html(data.menudata);
+
+
+                    }
+                });
+            }
+
+            $(document).on('keyup', '#search_item', function() {
+
+                var query = $(this).val();
+                fetch_items_list(query);
+
+            });
+        });
 
         function addtocart($id) {
 
@@ -302,8 +354,6 @@
 
         function sort(catid) {
 
-            console.log("inside log");
-
             var url = window.location.href;
             var id = url.split("/").pop();
             console.log("table id", id);
@@ -323,7 +373,7 @@
 
                     if (result.menudata.length > 0) {
                         for (let i = 0; i < result.menudata.length; i++) {
-                            $('.tab-content-search').append(' <div class="col-lg-3 col-md-4 col-sm-6">  <div class="cs-card mb-5 cs-product-card"> <div class="card-image"><img src="http://127.0.0.1:8000/storage/' + result.menudata[i].image + '" height="250" alt="test"></div><div class="pull-left"> <h4>' + result.menudata[i].title + '</h4><p>$' + result.menudata[i].price + '</p></div></div> <div class="pull-right"><a class="btn btn-sm btn-round btn-primary card-btn" onclick="addtocart(' + result.menudata[i].title + ')">Add to cart</a></div></div>');
+                            $('.tab-content-search').append(' <div class="col-lg-3 col-md-4 col-sm-6">  <div class="cs-card mb-5 cs-product-card"> <div class="card-image"><img src="http://127.0.0.1:8000/storage/' + result.menudata[i].image + '" height="250" alt="test"></div><div class="pull-left"> <h4>' + result.menudata[i].title + '</h4><p>$' + result.menudata[i].price + '</p></div></div> <div class="pull-right"><a class="btn btn-sm result btn-round btn-primary card-btn" onclick="addtocart(' + result.menudata[i].title + ')">Add to cart</a></div></div>');
 
 
 
@@ -335,10 +385,10 @@
                 }
             })
         }
-        $( "#search_item_in" ).change(function() 
-  {
-    console.log("yes");
-    });
+
+        $("#search_item_in").change(function() {
+            console.log("yes");
+        });
 
         function search() {
 
