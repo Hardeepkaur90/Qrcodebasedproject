@@ -37,16 +37,6 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
 
-
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">About Us</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Contact Us</a>
-                                    </li>
-                                    <li class="nav-item login-btn">
-                                        <a class="nav-link" href="#">Login</a>
-                                    </li>
                                     <li class="nav-item">
 
                                         <a class="nav-link position-relative" href="/my-cart/{{$id}}">
@@ -114,17 +104,19 @@
             </ul>
             <div class="tab-content">
                 <div id="pizzas" class="tab-pane fade in active">
-                    <div class="row" id="alldata" >
-                      
-                       @foreach($menudata as $m)
-                        <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="row" id="alldata">
+
+                        @foreach($menudata as $m)
+                        <div class="col-lg-3 col-md-4 col-sm-6 menu-items">
                             <div class="cs-card mb-5 cs-product-card">
                                 <div class="card-image" style="background-image:url('{{ Storage::url($m->image) }}')"></div>
-                                    <div class="cs-card-content clearfix">
+                                <div class="cs-card-content clearfix">
                                     <div class="pull-left">
                                         <h4 title="Margherita "> {{$m->title}}</h4>
                                         <p>${{$m->price}}</p>
                                     </div>
+                                   
+
                                     <div class="pull-right">
                                         <form id="item_form_856766">
                                             <input type="hidden" id="itemFrom856766" value="items">
@@ -132,16 +124,19 @@
                                             <input type="hidden" id="selected_menu_id856766" value="21">
                                             <input type="hidden" id="selected_item_cost856766" value="200.00">
                                         </form>
-                                 
+                                        <input type="hidden" class="menu_id" value="{{$m->id}}">
                                         @if(in_array($m->id, $mycart))
-                                        <a onclick="addtocart('{{$m->id}}')" class="btn btn-sm btn-round test btn-success card-btn">Add to cart
-                                       </a>
-                                       @else
-                                       <a onclick="addtocart('{{$m->id}}')" class="btn btn-sm btn-round test5 btn-primary card-btn">Add to cart
-                                       </a>
+                                   
+                                        <a onclick="addtocart('{{$m->id}}')" class="btn btn-sm btn-round addtocartc btn-warning card-btn">Add to cart
+                                        </a>
+                                        @else
+                                      
+                                        <a onclick="addtocart('{{$m->id}}')" id=
+                                        '{{$m->id}}' class="btn btn-sm btn-round addtocartc not-in btn-primary card-btn">Add to cart
+                                        </a>
 
-                                       @endif
-                                       
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -151,18 +146,13 @@
 
                     </div>
                     <div id="filterdata" class="row">
-                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="tab-content-search">
 
             </div>
-
-
-
-
-
         </div>
     </div>
     <!-- food section -->
@@ -326,8 +316,7 @@
             });
         });
 
-        function addtocart($id) {
-
+        function addtocart($id) { 
             var url = window.location.href;
             var tablenumber = url.split("/").pop();
             $.ajax({
@@ -341,10 +330,25 @@
                 success: function(result) {
 
                     console.log("result.count", result.count);
-                    Swal.fire({
-                        text: result.success,
-                        icon: 'success',
-                    })
+                    if (result.success == 'success') {
+
+
+                        Swal.fire({
+                            text: "Item added sucessfully",
+                            icon: 'success',
+
+                        })
+                    }
+                    // $(this).closest('.menu-items').addClass('button-green');
+                 console.log("checking ");
+
+                //  if(inArray(val, result.mycart)  ){
+
+                //  }else{
+
+                //  }
+                //    $(this).closest('.menu-items').find('.addtocartc').addClass('buttongreen');
+
                     $('#items-count').text(result.count);
                     // document.getElementById("items-count").text = result.count;
                     // window.location.reload();

@@ -77,29 +77,22 @@ class paymentController extends Controller
                  //Creating Orders entry in orders table  
                  
                  $table_id = Table::where('id',session('table_id'))->pluck('rest_id');
-                
-                    $clientIP = \Request::ip(); 
-                    
-                  
-                    
+                 $clientIP = \Request::ip(); 
+                  //adding order in order's table
                  $order = new Order();  
                  $order->user_id =  $clientIP;
                  $order->status = '0';
                  $order->total_price = $arr['transactions'][0]['amount']['total'];
                  $order->discount ='0';
                  $order->rest_id =$table_id[0];
+                 $order->payment_mode =  "online";
                  $order->table_id = session('table_id');
                  $order->payment_id = $arr['id'];
                  $order->save();
                  
-                 
-                 // creating order details table entry
-                   $items = Addtocart::where('table_id',session('table_id'))->get();
-                 
-                  
-                    
-                 
-                 foreach ($items as $value) {
+                 // adding order in order_details table entry
+                  $items = Addtocart::where('table_id',session('table_id'))->get();
+                  foreach ($items as $value) {
                      
                     $itemdata = Items::where('id',$value->item_id)->get();
                     
@@ -139,6 +132,58 @@ class paymentController extends Controller
  
      public function error(){
          return "User Declied the payment!";
+     }
+
+     public function paycash(Request $req){
+     
+
+         $clientIP = \Request::ip(); 
+
+         $rest_id = Table::where('id',$req->table_id)->pluck('rest_id');
+
+         //insert offline order in orders table
+         $order = new Order();  
+         $order->user_id =  $clientIP;
+         $order->status = '0';
+         $order->total_price = $req->value;
+         $order->discount ='0';
+         $order->rest_id = $rest_id;
+         $order->payment_mode =  "offline";
+         $order->table_id = $req->table_id;
+         $order->save();
+
+          //insert offline order in orders detail table
+          $items = Addtocart::where('table_id',$req->table_id)->get();
+          $order_detail = new order_details();
+
+
+          foreach ($items as $value) {
+                     
+            $itemdata = Items::where('id',$value->item_id)->get();
+            
+            $itemdata1 = Addtocart::where('user_id',$clientIP )->update([
+              'status'=>1 
+               ]);
+              
+          
+             $order_detail = new order_details();
+             
+                  $order_detail->user_id =  $clientIP;
+                  $order_detail->order_id = $order->id;
+                  $order_detail->item_id = $value->item_id;
+                  $order_detail->table_id = $req->table_id;
+                  $order_detail->item_name =$itemdata['0']->title;
+                  $order_detail->status = 0;
+                  $order_detail->qty = $value->qty;
+                  $order_detail->save();
+             }
+             
+        
+             
+                 return redirect('your-order/'.$clientIP);
+                     
+      
+
      }
      
 }

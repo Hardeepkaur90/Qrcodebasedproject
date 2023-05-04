@@ -67,6 +67,9 @@ Route::post('/charge',[paymentController::class,'charge']);
 Route::get('/success',[paymentController::class,'success']);
 Route::get('/error',[paymentController::class,'error']);
 
+Route::post('/paycash',[paymentController::class,'paycash']);
+
+
 
 Route::post('/search-item',[menuController::class,'searchitem'])->name('search-item');
 
