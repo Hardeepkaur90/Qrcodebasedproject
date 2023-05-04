@@ -373,7 +373,7 @@
 
                     if (result.menudata.length > 0) {
                         for (let i = 0; i < result.menudata.length; i++) {
-                            $('.tab-content-search').append(' <div class="col-lg-3 col-md-4 col-sm-6">  <div class="cs-card mb-5 cs-product-card"> <div class="card-image"><img src="http://127.0.0.1:8000/storage/' + result.menudata[i].image + '" height="250" alt="test"></div><div class="pull-left"> <h4>' + result.menudata[i].title + '</h4><p>$' + result.menudata[i].price + '</p></div></div> <div class="pull-right"><a class="btn btn-sm result btn-round btn-primary card-btn" onclick="addtocart(' + result.menudata[i].title + ')">Add to cart</a></div></div>');
+                            $('.tab-content-search').append(' <div class="col-lg-3 col-md-4 col-sm-6">  <div class="cs-card mb-5 cs-product-card"> <div class="card-image"><img src="http://127.0.0.1:8000/storage/' + result.menudata[i].image + '" class="img-fluid" height="250" alt="test"><div class="pull-left"> <h4>' + result.menudata[i].title + '</h4><p>$' + result.menudata[i].price + '</p></div> <div class="pull-right"><a class="btn btn-sm result btn-round btn-primary card-btn" onclick="addtocart(' + result.menudata[i].title + ')">Add to cart</a></div></div></div></div>');
 
 
 
