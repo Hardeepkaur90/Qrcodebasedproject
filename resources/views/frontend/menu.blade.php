@@ -26,38 +26,34 @@
         <div class="container">
             <div class="row">
                 <div class="d-flex justify-content-between">
-
-
                     <div class="logo"><a href="JavaScript:void(0)"><img class="img-fluid" alt="" src="{{ url('/assets/images/logo.png')}}" /></a></div>
-                    <div class="navbar-menu" id="open-navbar1">
+                    <div class="navbar-menu d-flex" id="open-navbar1">
                         <nav class="navbar navbar-expand-lg navbar-light">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
-
-
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">About Us</a>
+                                        <a class="nav-link" href="#">Home</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a class="nav-link" href="#">Contact Us</a>
                                     </li>
                                     <li class="nav-item login-btn">
                                         <a class="nav-link" href="#">Login</a>
                                     </li>
                                     <li class="nav-item">
-
                                         <a class="nav-link position-relative" href="/my-cart/{{$id}}">
                                             <span><i class="fa fa-shopping-cart" aria-hidden="true"></i><span id="items-count" class="fc-count">{{$count}}</span></span>
                                         </a>
-
-                                    </li>
+                                    </li> -->
                                 </ul>
-
                             </div>
                         </nav>
+                        <a class="cart-icon" href="/my-cart/{{$id}}">
+                            <span><i class="fa fa-shopping-cart" aria-hidden="true"></i><span id="items-count" class="fc-count">{{$count}}</span></span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -85,7 +81,7 @@
                                     <input type="text" name="search_item" id="search_item" class="form-control searchbar-input" value="{{ old('search_item') }}" placeholder="Search for dishes or cuisines">
                                     <span class="input-group-addon">
                                         <button type="submit" class="search-btn" id="basic-addon2">
-                                            <span class="hidden-xs">Search</span>
+                                            <span class="">Search</span>
                                         </button>
                                     </span>
                                 </div>

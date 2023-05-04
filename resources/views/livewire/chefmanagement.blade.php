@@ -1,32 +1,37 @@
 <!-- Navbar -->
 <!-- End Navbar -->
-<div class="container-fluid py-4">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <div class="card my-4">
+            <div class="d-flex me-3 my-3 justify-content-between align-items-center">
+                <h5 class="font-weight-bolder mb-0 text-capitalize">Manage Chef</h5>
+                <a class="btn btn-primary mb-0" href="add-chef"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Chef</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <div class=" me-3 my-3 text-end">
-                    <a class="btn bg-gradient-dark mb-0" href="add-chef"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
-                        Chef
-                    </a>
-                </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12" style="min-height:calc(100vh - 260px)">
+            <div class="card my-4">
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4 custom-font">
                                         ID
                                     </th>
 
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                         NAME</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                         EMAIL</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                         PROFILE</th>
 
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                         ACTION
                                     </th>
 
@@ -37,7 +42,7 @@
                                 @foreach($chefs as $r)
                                 <tr>
                                     <td>
-                                        <div class="d-flex px-4 py-1">
+                                        <div class="d-flex ps-3 py-1">
                                             <div class="d-flex flex-column justify-content-center">
                                                 <p class="mb-0 text-sm">{{$i}}</p>
                                             </div>
@@ -51,7 +56,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="align-middle text-center text-sm">
+                                        <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ $r->email}}</h6>
 
                                         </div>
@@ -59,14 +64,11 @@
                                   
 
                                     <td>
-                                        <div class="align-middle text-center text-sm">
-                                        <img src="{{ asset('storage/'.$r->profile) }}" alt="" height="50" width="50">
-                                     
-                                          
-
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <img src="{{ asset('storage/'.$r->profile) }}" alt="" height="50" width="50">
                                         </div>
                                     </td>
-                                    <td class="align-middle text-center text-sm">
+                                    <td class="align-middle">
                                        
                                         <a rel="tooltip" class="btn btn-success btn-link" wire:click.prevent="edit({{ $r->id }})" href="" data-original-title="" title="">
                                             <i class="material-icons">edit</i>

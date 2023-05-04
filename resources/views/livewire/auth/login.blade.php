@@ -6,7 +6,7 @@
                 style="background-image: url('../assets/img/illustrations/illustration-signup.jpg'); background-size: cover;">
             </div>
         </div>
-        <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+        <div class="col-xl-5 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
             <div class="card z-index-0 fadeIn3 fadeInBottom">
                 <!-- <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">

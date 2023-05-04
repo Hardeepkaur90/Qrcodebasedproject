@@ -68,9 +68,9 @@ return [
     |
     */
 
-    // 'app_url' => null,
-    'asset_url' => env('APP_URL', 'http://localhost'),
-'app_url' => env('APP_URL', 'http://localhost'),
+    'app_url' => null,
+//     'asset_url' => env('APP_URL', 'http://localhost'),
+// 'app_url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
