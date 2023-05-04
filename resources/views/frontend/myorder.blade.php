@@ -65,31 +65,37 @@
                     <table width="100%" cellspacing="0" cellpadding="0" class="cart-table">
 
                         @foreach($cart as $c)
-                        <tr id="tr_{{$c->itemDetail->id}}">
+                        <tr id="tr_{{$c->itemDetail->id}}" class="cartpage">
                             <td class="product-thumbnail"><a href="#"><img src="{{ Storage::url($c->itemDetail->image) }}" alt="test" class="img-fluid"></a></td>
                             <td class="product-content">
                                 <div class="product-top">
                                     <div class="product-name"><a href="#">{{$c->itemDetail->title}}</a></div>
-                                    <div class="product-price"><span class="amount"><bdi id="total_ammount_{{$c->itemDetail->id}}"><span class="woocommerce-Price-currencySymbol">$</span>{{$c->itemDetail->price * $c->qty}}</bdi></span></div>
+                                    <div class="product-price"><span class="amount">
+                                        <bdi id="total_ammount_{{$c->id}}">
+                                            <span class="woocommerce-Price-currencySymbol">$</span>{{$c->itemDetail->price * $c->qty}}
+                                        </bdi>
+                                    </span>
+                                </div>
                                 </div>
                                 <div class="product-bottom">
                                     <div class="product-qty">
                                         <div class="cart-item-qty" data-nonce="dcefd462dc">
                                             <div class="quantity">
+                                                <input type="hidden" class="cart_id" value="{{$c->id}}">
 
-                                                <input class="quantity-btn" type="button" id="dec_{{$c->itemDetail->id}}" onclick="getvalue1('{{$c->itemDetail->id}}')" qty="{{ $c->qty }}" value="-">
+                                                <input class="quantity-btn decrement-btn chagequentity" type="button" value="-">
 
-                                                <input type="number" id="qty_{{$c->itemDetail->id}}" class="input-text qty text" value="{{ $c->qty }}" title="Qty" size="4" min="0" max="" step="1" placeholder="" inputmode="numeric" autocomplete="off">
+                                                <input type="number" class="input-text qty text quentyty-in" value="{{ $c->qty }}">
 
-                                                <input class="quantity-btn" type="button" id="inc_{{$c->itemDetail->id}}" onclick="getvalue('{{$c->itemDetail->id}}')" qty="{{ $c->qty }}" value="+">
+                                                <input class="quantity-btn increament_btn chagequentity" type="button" value="+">
 
-                                                <!--                                                
-                                                <span class="qty-button increase" onclick="increase('{{$c->itemDetail->id}}')">
-                                                
-                                                    <svg aria-hidden="true" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                                        <path fill="currentColor" d="M376 232H216V72c0-4.42-3.58-8-8-8h-32c-4.42 0-8 3.58-8 8v160H8c-4.42 0-8 3.58-8 8v32c0 4.42 3.58 8 8 8h160v160c0 4.42 3.58 8 8 8h32c4.42 0 8-3.58 8-8V280h160c4.42 0 8-3.58 8-8v-32c0-4.42-3.58-8-8-8z" class=""></path>
-                                                    </svg>
-                                                </span> -->
+                                                <!-- <input class="quantity-btn decreament-btn chagequentity" type="button" id="dec_{{$c->itemDetail->id}}" onclick="getvalue1('{{$c->itemDetail->id}}')"qty="{{ $c->qty }}" value="-">
+
+                                                <input type="number" id="qty_{{$c->itemDetail->id}}" class="input-text qty text quentyty-in" value="{{ $c->qty }}" title="Qty" size="4" min="0" max="" step="1" placeholder="" inputmode="numeric" autocomplete="off">
+
+                                                <input class="quantity-btn increment-btn chagequentity" type="button" id="inc_{{$c->itemDetail->id}}" onclick="getvalue('{{$c->itemDetail->id}}')" qty="{{ $c->qty }}" value="+"> -->
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -135,12 +141,12 @@
                             <input type="hidden" name="value" value="{{ $totalprice }}">
                             <!-- <a class="checkout-button"  href="JavaScript:void(0)">Proceed to checkout</a> -->
                             <!-- <a href="#" class="checkout-button">Proceed to checkout</a> -->
-                            <button class="checkout-button" type="submit">Place Order</button>
+                            <button class="checkout-button" id="placeorder" type="submit">Place Order</button>
 
-                            <div style="margin-top:30px">
-                                <label><input type="radio" name="payment_method[]" value="cash"> Cash On Counter</label>
-                                <br>
-                                <label style="margin-top:10px"><input type="radio" name="payment_method[]" value="online"> Online payment</label>
+                            <div id="payment_options">
+                                <input type="radio" name="payment_method[]" value="cash">Cash On Counter
+                                <input type="radio" name="payment_method[]" value="online"> Online payment
+
                             </div>
                         </form>
                     </div>
@@ -229,131 +235,115 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script>
-        function toggleTab(e) {
+        $(document).ready(function() {
+
+            $('.increament_btn').click(function(e) {
+                e.preventDefault();
+                var quentity = $(this).closest('.cartpage').find('.quentyty-in').val();
+                var cartid = $(this).closest('.cartpage').find('.cart_id').val();
+
+                // console.log("quentity===>", quentity);
+                // console.log("cartid==>", cartid);
+                if (quentity < 10) {
+                    quentity++;
+                    $(this).closest('.cartpage').find('.quentyty-in').val(quentity);
+                }
+                var url = window.location.href;
+                var tablenumber = url.split("/").pop();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('/change-qty')}}",
+                    data: {
+                        table_id: tablenumber,
+                        item_id: cartid,
+                        qty: quentity,
+
+                        '_token': '{{csrf_token()}}'
+                    },
+                    success: function(result) {
+                        var dd = result.obj;
+                        var data = JSON.stringify(result.obj);
+                        var item_idold = JSON.stringify(result.item_id);
+                        var tatalgrand = JSON.stringify(result.grand_total);
+                       
+                        for (let i = 0; i < dd.length; i++) {
+
+                           
+                            if (dd[i].id == result.item_id) {
+                                
+                                var idcus = 'qty_' + result.item_id
+                                var ptotal = '#total_ammount_'+result.item_id;
+                                $(ptotal).text("$" + dd[i].qty * dd[i].item_detail['price']);
+                                $('.grandTotal').text("$" + tatalgrand);
+                                $('#inc_' + result.item_id).attr('qty', dd[i].qty);
+                                return;
+                            }
+                        }
+
+                    },
+                    error: function(e) {
+                        alert(e.error);
+                    },
+                });
+
+
+            })
+
+            $('.decrement-btn').click(function(e) {
+                e.preventDefault();
+                var quentity = $(this).closest('.cartpage').find('.quentyty-in').val();
+                var cartid = $(this).closest('.cartpage').find('.cart_id').val();
+                if (quentity > 1) {
+                    quentity--;
+                    $(this).closest('.cartpage').find('.quentyty-in').val(quentity);
+                }
+                var url = window.location.href;
+                  if (quentity < 1) {
+                      Swal.fire({
+                        text: "qty can't be -ve number",
+                        icon: 'warning',
+                     });
+                 return;
+                }
+                 var tablenumber = url.split("/").pop();
+                    $.ajax({
+                    type: 'POST',
+                    url: "{{ url('/change-qty')}}",
+                    data: {
+                        table_id: tablenumber,
+                        item_id: cartid,
+                        qty: quentity,
+
+                        '_token': '{{csrf_token()}}'
+                    },
+                    success: function(result) {
+                        var dd = result.obj;
+                        var data = JSON.stringify(result.obj);
+                        var item_idold = JSON.stringify(result.item_id);
+                        var tatalgrand = JSON.stringify(result.grand_total);
+              
+                        for (let i = 0; i < dd.length; i++) {
+                            console.log(result);
+                            if (dd[i].id == result.item_id) {
+                             var ptotal = '#total_ammount_'+result.item_id;
+                             $(ptotal).text("$" + dd[i].qty * dd[i].item_detail['price']);
+                             $('.grandTotal').text("$" + tatalgrand);
+                           }
+                        }
+                       },
+                    error: function(e) {
+                        alert(e.error);
+                    },
+                });
+
+
+            })
+        })
+
+     function toggleTab(e) {
             var hrefVal = $(e).attr('href');
             $('.nav-tabs li').removeClass('active');
             $('.nav-tabs li[data-active="' + hrefVal + '"]').addClass('active');
-        }
-
-        $qty = '';
-
-
-        function getvalue($id) {
-
-            $qty = event.target.getAttribute("qty");
-            $qty = ++$qty;
-            $url = window.location.href;
-
-            $tablenumber = $url.split("/").pop();
-
-            console.log("table id==>", $tablenumber);
-            console.log("==>", $qty);
-            console.log("addtocartid==>", $id);
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('/change-qty')}}",
-                data: {
-                    table_id: $tablenumber,
-                    item_id: $id,
-                    qty: $qty,
-
-                    '_token': '{{csrf_token()}}'
-                },
-                success: function(result) {
-
-
-                    var dd = result.obj;
-                    var data = JSON.stringify(result.obj);
-                    var item_idold = JSON.stringify(result.item_id);
-                    var tatalgrand = JSON.stringify(result.grand_total);
-                    console.log("data===>", data);
-                    console.log("item id===>", item_idold);
-
-                    for (let i = 0; i < dd.length; i++) {
-                        if (dd[i].item_id == result.item_id) {
-                            console.log("result===>", dd[i].qty);
-                            var idcus = 'qty_' + result.item_id
-                            var ptotal = '#total_ammount_' + result.item_id;
-
-                            $(ptotal).text("$" + dd[i].qty * dd[i].item_detail['price']);
-                            $('#' + idcus).val(dd[i].qty);
-                            $('.grandTotal').text("$" + tatalgrand);
-
-
-
-
-                            $('#inc_' + result.item_id).attr('qty', dd[i].qty);
-                            console.log("inside===>");
-                            return;
-                        }
-                    }
-
-                },
-                error: function(e) {
-                    alert(e.error);
-                },
-            });
-        }
-
-
-        function getvalue1($id) {
-
-            $qty = event.target.getAttribute("qty");
-            $qty = --$qty;
-            $url = window.location.href;
-
-            if ($qty < 0) {
-
-                alert("qty can't be -ve number");
-                return;
-            }
-
-
-            $tablenumber = $url.split("/").pop();
-
-            console.log("table id==>", $tablenumber);
-            console.log("==>", $qty);
-            console.log("addtocartid==>", $id);
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('/change-qty')}}",
-                data: {
-                    table_id: $tablenumber,
-                    item_id: $id,
-                    qty: $qty,
-
-                    '_token': '{{csrf_token()}}'
-                },
-                success: function(result) {
-                    var dd = result.obj;
-                    var data = JSON.stringify(result.obj);
-                    var item_idold = JSON.stringify(result.item_id);
-                    var tatalgrand = JSON.stringify(result.grand_total);
-                    console.log("data===>", data);
-                    console.log("item id===>", item_idold);
-
-                    for (let i = 0; i < dd.length; i++) {
-                        if (dd[i].item_id == result.item_id) {
-                            console.log("result===>", dd[i].qty);
-                            var idcus = 'qty_' + result.item_id;
-                            console.log("price===>", dd[i].qty * dd[i].item_detail['price']);
-
-                            var ptotal = '#total_ammount_' + result.item_id;
-
-                            $(ptotal).text("$" + dd[i].qty * dd[i].item_detail['price']);
-                            $('.grandTotal').text("$" + tatalgrand);
-
-                            $('#' + idcus).val(dd[i].qty);
-
-                            $('#dec_' + result.item_id).attr('qty', dd[i].qty);
-                        }
-                    }
-
-                },
-                error: function(e) {
-                    alert(e.error);
-                },
-            });
         }
 
         function homefun() {
