@@ -31,7 +31,7 @@ use App\Http\Livewire\Edittable;
 use App\Http\Livewire\Edituser;
 use App\Http\Livewire\Managecategory;
 use App\Http\Livewire\Manageitem;
-use App\Http\Livewire\chefmanagement;
+use App\Http\Livewire\Chefmanagement;
 use App\Http\Livewire\Addchef;
 use App\Http\Livewire\Editorder;
 use App\Http\Livewire\Managemenu;

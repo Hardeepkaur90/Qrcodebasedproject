@@ -262,17 +262,17 @@ class menuController extends Controller
         }
       }
               
-        else{
-          $orders[$i]['table_number'] = $orders[$i]->table_id;
-          $orders[$i]['payment_id'] =$orders[$i]->id;
-          $data = Items::where('id',$orders[$i]->order_detail[0]->item_id)->get();
-          $orders[$i]['item_name'] = $data[0]->title;
-          $orders[$i]['image'] = $data[0]->image;
-          $orders[$i]['qty'] = $orders[$i]->order_detail[0]->qty;
-          array_push($NewArray,$orders[$i]);
+  //       else{
+  //         $orders[$i]['table_number'] = $orders[$i]->table_id;
+  //         $orders[$i]['payment_id'] =$orders[$i]->id;
+  //         $data = Items::where('id',$orders[$i]->order_detail[0]->item_id)->get();
+  //         $orders[$i]['item_name'] = $data[0]->title;
+  //         $orders[$i]['image'] = $data[0]->image;
+  //         $orders[$i]['qty'] = $orders[$i]->order_detail[0]->qty;
+  //         array_push($NewArray,$orders[$i]);
         
      
-   }
+  //  }
     }
 
  
