@@ -147,7 +147,7 @@ class paymentController extends Controller
          $order->status = '0';
          $order->total_price = $req->value;
          $order->discount ='0';
-         $order->rest_id = $rest_id;
+         $order->rest_id = $rest_id[0];
          $order->payment_mode =  "offline";
          $order->table_id = $req->table_id;
          $order->save();

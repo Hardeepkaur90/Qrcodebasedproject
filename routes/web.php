@@ -126,7 +126,7 @@ Route::group(['middleware' => 'admin','cors'], function () {
    
 });
 
-Route::get('edit-chef-info/{id}',editchef::class)->middleware('auth')->name('edit-chef-info');
+Route::get('edit-chef-info/{id}',Editchef::class)->middleware('auth')->name('edit-chef-info');
 
 Route::get('additem', Additem::class)->middleware('auth')->name('additem');
 Route::get('manageitem', Manageitem::class)->middleware('auth')->name('manageitem');

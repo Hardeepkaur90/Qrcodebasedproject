@@ -20,13 +20,27 @@ class menuController extends Controller
 
     $vendor_id = Table::where('id', $id)->pluck('rest_id');
     if ($req->ajax()) {
-      $menudata = Items::where('vendor_id', '=', $vendor_id[0])->where('type', '=', $catid)->get();
+      $menudata = Items::where('vendor_id', '=', $vendor_id[0])
+      ->where('type', '=', $catid)
+      ->where('status','=',1)
+      ->get();
       return response()->json([
         'menudata' => $menudata,
       ], 200);
-    } else {
-      $menudata = Items::where('vendor_id', $vendor_id[0])->get();
+    } else{
+    
+      
+      $menudata = Items::where('vendor_id', $vendor_id[0])
+      ->where('status',1)
+      ->get();
+
+      // dd($menudata);
+      // // $menudata = Items::where('vendor_id', $vendor_id[0])
+      // // ->orWhere('status',1)
+      // // ->get();
     }
+   
+    
     $count = Addtocart::where('table_id', $id)->count();
     $category = Category::get();
 
@@ -51,7 +65,9 @@ class menuController extends Controller
 
     $vendor_id = Table::where('id', $req['id'])->pluck('rest_id');
     if ($req->ajax()) {
-      $menudata = Items::where('vendor_id', '=', $vendor_id[0])->where('title', 'like', '%' . $req['query'] . '%')
+      $menudata = Items::where('vendor_id', '=', $vendor_id[0])
+      ->where('status',1)
+      ->where('title', 'like', '%' . $req['query'] . '%')
         ->get();
 
       $total_rows = $menudata->count();
@@ -240,16 +256,26 @@ class menuController extends Controller
 
           $orders[$i]->order_detail[$j]->table_number = $orders[$i]->table_id;
           $orders[$i]->order_detail[$j]->payment_id = $orders[$i]->payment_id;
-          // $orders[$i]->order_detail[$j]->image = $orders[$i]->order_detail[$j]->item_details->image;
-          //   $orders[$i]->order_detail[$j]->image = $orders[$i]->payment_id;
-          //   echo ($orders[$i]->order_detail[$j]);
-          $array =  (array) $orders[$i]->order_detail[$j];
-          //   if (is_array($array)) {
-          array_push($NewArray, $orders[$i]->order_detail[$j]);
-          // }
+         
+         array_push($NewArray, $orders[$i]->order_detail[$j]);
+        
         }
       }
+              
+        else{
+          $orders[$i]['table_number'] = $orders[$i]->table_id;
+          $orders[$i]['payment_id'] =$orders[$i]->id;
+          $data = Items::where('id',$orders[$i]->order_detail[0]->item_id)->get();
+          $orders[$i]['item_name'] = $data[0]->title;
+          $orders[$i]['image'] = $data[0]->image;
+          $orders[$i]['qty'] = $orders[$i]->order_detail[0]->qty;
+          array_push($NewArray,$orders[$i]);
+        
+     
+   }
     }
+
+ 
     $orderdata = $NewArray;
 
     return view('frontend.orderstatus', compact('orderdata'));

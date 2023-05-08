@@ -33,8 +33,7 @@
                                                 <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                                 Action</th>
-                    
-                                        </tr>
+                                           </tr>
                                     </thead>
                                     <tbody>
                                        
@@ -44,9 +43,9 @@
                                 
                                
                                 @foreach($orders as $key => $r)
-                                
-                                
-                                 <tr>
+
+                           
+                                <tr>
                                     <td>
                                         <div class="d-flex ps-3 py-1">
                                             <div class="d-flex flex-column justify-content-center">
@@ -55,9 +54,11 @@
                                         </div>
                                     </td>
                                     <td>
+
+                                  
                                         <div class="d-flex flex-column justify-content-center">
                                              <img src="{{ asset('/storage/'.$r->image) }}" alt="test" height="50" width="50">
-                                           <!--<img src="{{ Storage::url($r->image) }}" alt="test" height="50" width="50">-->
+                                       
 
                                         </div>
                                     </td>

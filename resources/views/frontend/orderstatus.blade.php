@@ -83,7 +83,17 @@
                                     <tr>
                                         <td>{{$i}}</td>
                                         <td>{{$data->item_name}}</td>
+                                     
+                                        @isset($data->item_details->image)
+
                                         <td><img src="{{ Storage::url($data->item_details->image) }}" alt="test" height="50" width="50" class="img-fluid"></td>
+                                        @endisset
+                                        @isset($data->image)
+                                        <td><img src="{{ Storage::url($data->image) }}" alt="test" height="50" width="50" class="img-fluid"></td>
+                                        @endisset
+                                      
+                                        
+                                       
                                         <td>{{$data->table_id}}</td>
                                         <td>{{$data->qty}}</td>
                                         @if($data->status == 0)
