@@ -27,7 +27,7 @@ class Edittable extends Component
     }
 
     public function update(){
-
+    
      $this->validate([
          'name'=>'required',
          'description'=>'required',
@@ -36,10 +36,12 @@ class Edittable extends Component
      $data['name']=$this->name;
      $data['description']=$this->description;
      $data['rest_id']=Auth()->user()->id;
-
+     $v_id = Auth()->user()->id;
      $path = public_path('assets/qrcode/' . time() . '.svg');
         $image = QrCode::size(100)
-            ->generate("https://www.google.com/", $path);
+       
+        ->generate("http://127.0.0.1:8000/dispalymenu/$v_id/$this->edit_table_id", $path);
+            // ->generate("https://www.google.com/", $path);
 
             $data['qrcode']= $path;
 

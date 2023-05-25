@@ -32,12 +32,13 @@ class Tabledata extends Component
 
         ]);
        $validatedData['rest_id'] =Auth()->user()->id;
+       $v_id = Auth()->user()->id;
       $table_data=Table::create($validatedData);
 
 
     $path = public_path('assets/qrcode/' . time() . '.svg');
         $image = QrCode::size(100)
-            ->generate("http://127.0.0.1:8000/dispalymenu/$table_data->id", $path);
+            ->generate("http://127.0.0.1:8000/dispalymenu/v_id=$v_id/id=$table_data->id", $path);
 
         Table::where('id',$table_data->id)
        ->update([

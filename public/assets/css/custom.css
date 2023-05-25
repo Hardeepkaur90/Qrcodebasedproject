@@ -1001,3 +1001,12 @@ a.social-icons:hover {
     }
 }
 
+/* dev css */
+.text-left{
+    text-align: center;
+}
+.card-text{
+    font-size: 69px;
+    font-weight: 900;
+}
+

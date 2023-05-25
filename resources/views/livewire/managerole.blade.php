@@ -1,4 +1,4 @@
-
+<div>
         <!-- Navbar -->
         <!-- End Navbar -->
 
@@ -82,3 +82,4 @@
                 </div>
             </div>
         </div>
+</div>

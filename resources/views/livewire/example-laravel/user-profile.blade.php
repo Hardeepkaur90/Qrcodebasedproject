@@ -77,12 +77,12 @@
                     </div>
                 </div>
                 @endif
-               
-                <?php  $update='0'; ?>
 
-               
+                <?php $update = '0'; ?>
 
-             
+
+
+
                 @if($state == 'view')
                 <form wire:submit.prevent='update'>
                     <div class="row">
@@ -122,22 +122,41 @@
                             <p class='text-danger inputerror'>{{ $message }} </p>
                             @enderror
                         </div>
-                       
+
                         <div class="mb-3 col-md-6">
-                   
+
                             <label class="form-label">Profile</label>
 
-                            <input type="file" wire:model.lazy="profile"  accept="image/*"  onchange="loadfile(event)" class="form-control border border-2 p-2">
+                            <input type="file" wire:model.lazy="profile" accept="image/*" onchange="loadfile(event)" class="form-control border border-2 p-2">
 
                             @error('profile')
                             <p class='text-danger inputerror'>{{ $message }} </p>
                             @enderror
                         </div>
-                       @if($profile)
+                        @if($profile)
                         <div class="mb-3 col-md-6" id="imgOutput">
-                           <img id="preview-image-before-upload" alt="profile" style="max-height: 250px;">
+                            <img id="preview-image-before-upload" alt="profile" style="max-height: 250px;">
                         </div>
                         @endif
+
+
+                        <div class="mb-3 col-md-6">
+
+                            <label class="form-label">Brand Name</label>
+                            <input wire:model.lazy="brandname" type="text" class="form-control border border-2 p-2">
+                            @error('brandname')
+                            <p class='text-danger inputerror'>{{ $message }} </p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3 col-md-6">
+
+                            <label class="form-label">Brand Name</label>
+                            <input wire:model.lazy="brandlogo" type="file" class="form-control border border-2 p-2">
+                            @error('brandlogo')
+                            <p class='text-danger inputerror'>{{ $message }} </p>
+                            @enderror
+                        </div>
 
                         <div class="mb-3 col-md-12">
 
@@ -150,9 +169,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
-                
-              @else
-              <form wire:submit.prevent='edit' >
+
+                @else
+                <form wire:submit.prevent='edit'>
                     <div class="row">
 
                         <div class="mb-3 col-md-6">
@@ -190,7 +209,30 @@
                             <p class='text-danger inputerror'>{{ $message }} </p>
                             @enderror
                         </div>
-                      
+                        <div class="mb-3 col-md-6">
+
+                            <label class="form-label">Brandname</label>
+                            <input wire:model.lazy="brandname" readonly="readonly" type="text" class="form-control border border-2 p-2">
+                            @error('brandname')
+                            <p class='text-danger inputerror'>{{ $message }} </p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3 col-md-6">
+
+                            <label class="form-label">Brandlogo</label>
+                            <div class="avatar avatar-xl position-relative">
+                            <img src="{{ Storage::url(auth()->user()->brandlogo) }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                            </div>
+                          
+                            
+                            @error('brandlogo')
+                            <p class='text-danger inputerror'>{{ $message }} </p>
+                            @enderror
+                        </div>
+
+
+
                         <div class="mb-3 col-md-12">
 
                             <label for="floatingTextarea2">About</label>
@@ -202,9 +244,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Edit</button>
                 </form>
-              
-              @endif
-            
+
+                @endif
+
             </div>
         </div>
 
@@ -214,15 +256,14 @@
 </div>
 
 <script>
-var loadfile = function(event){
+    var loadfile = function(event) {
 
-    if (event.target.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#preview-image-before-upload').attr('src', e.target.result);
+        if (event.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#preview-image-before-upload').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(event.target.files[0]);
         }
-        reader.readAsDataURL(event.target.files[0]);
-     }
-}
-
+    }
 </script>

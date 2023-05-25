@@ -13,7 +13,7 @@ class Managetable extends Component
     public function render()
     {
 
-        $allTables = Table::where('rest_id',Auth()->user()->id)->paginate(2);
+        $allTables = Table::where('rest_id',Auth()->user()->id)->paginate(10);
         return view('livewire.managetable',compact("allTables"));
     }
 

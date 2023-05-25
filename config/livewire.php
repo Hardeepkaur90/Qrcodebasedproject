@@ -55,7 +55,7 @@ return [
     */
 
  
-    // 'asset_url' => '/public',
+    'asset_url' => null,
     /*
     |--------------------------------------------------------------------------
     | Livewire App URL
@@ -69,7 +69,7 @@ return [
     */
 
     'app_url' => null,
-//     'asset_url' => env('APP_URL', 'http://localhost'),
+//  'asset_url' => env('APP_URL', 'http://localhost'),
 // 'app_url' => env('APP_URL', 'http://localhost'),
 
     /*

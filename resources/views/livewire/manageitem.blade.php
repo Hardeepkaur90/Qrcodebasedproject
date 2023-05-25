@@ -51,6 +51,10 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                             Status
                                         </th>
+
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
+                                           Restorent Id
+                                        </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
                                             Action
                                         </th>
@@ -101,6 +105,13 @@
                                                     
 
                                             </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="d-flex flex-column justify-content-center">
+                                               
+                                            <h6 class="mb-0 text-sm">{{$r->vendor_id}}</h6>
+                                               </div>
                                         </td>
                                         <td class="align-middle">
                                             <a rel="tooltip" class="btn btn-success btn-link" wire:click.prevent="edit({{ $r->id }})" href="" data-original-title="" title="">

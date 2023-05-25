@@ -1,4 +1,4 @@
-
+<div>
         <!-- Navbar -->
         <!-- End Navbar -->
 
@@ -84,16 +84,20 @@
                                                 </div>
                                             </td>
                                             <td class="align-middle">
-                                                <button type="button" wire:click.prevent="edit({{ $r->id }})" class="btn btn-success btn-link"
+                                                <button type="button" wire:click="edit('{{ $r->id }}')" class="btn btn-success btn-link"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">edit</i>
                                                         <div class="ripple-container"></div>
                                                 </button>
-                                                <button type="button" wire:click.prevent="delete({{ $r->id }})" class="btn btn-danger btn-link"
+                                                <button type="button" wire:click="delete('{{ $r->id }}')" class="btn btn-danger btn-link"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">delete</i>
                                                         <div class="ripple-container"></div>
                                                 </button>
+
+                                       
+
+                                               
                                             </td>
                                         </tr>
                                     @endforeach
@@ -105,3 +109,4 @@
                 </div>
             </div>
         </div>
+</div>

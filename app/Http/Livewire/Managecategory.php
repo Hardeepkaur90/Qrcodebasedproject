@@ -10,12 +10,14 @@ class Managecategory extends Component
     public function render()
     {
 
-        $category = Category::get();
+        $category = Category::paginate(10);
         
         return view('livewire.managecategory', compact("category"));
     }
 
     public function delete($id){
+
+      
         $category = Category::find($id);
         if($category){
             $category->delete();

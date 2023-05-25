@@ -2,49 +2,50 @@
     <div class="row">
         <div class="col-12" style="min-height:calc(100vh - 200px)">
             <div class="card my-4">
-                
-            <div class="card-body px-0 pb-2">
 
-                            <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4 custom-font">
-                                                S.No</th>
-                                                 <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
-                                               Item Image </th>
-                                                <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
-                                                Order Number</th>
-                                                <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
-                                                Table Number</th>
-                                               <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
-                                                 Payment Method </th>
-                                               <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
-                                                Item Name </th>
-                                                <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
-                                                Status</th>
-                                                <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
-                                                Action</th>
-                                           </tr>
-                                    </thead>
-                                    <tbody>
-                                       
-                
+                <div class="card-body px-0 pb-2">
+
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4 custom-font">
+                                        S.No</th>
+                                        @if(@Auth::user()->roles->role_name === 'chef')     
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
+                                        Item Image </th>
+
+                                        @endif
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
+                                        Order Number</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
+                                        Table Number</th>
+
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
+                                        Payment Method </th>
+                                    @if(@Auth::user()->roles->role_name === 'admin')
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
+                                        Payment status </th>
+                                    @endif
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
+                                        Item Name </th>
+
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
+                                        Reminder Note </th>
+                                        @if(@Auth::user()->roles->role_name === 'chef')
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
+                                        Status</th>
+                                        @endif
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 custom-font">
+                                        Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <?php $i = 1; ?>
-                                
-                                
-                               
-                                @foreach($orders as $key => $r)
 
-                           
+                          
+                                @foreach($order as $key => $r)
+                               
                                 <tr>
                                     <td>
                                         <div class="d-flex ps-3 py-1">
@@ -53,30 +54,33 @@
                                             </div>
                                         </div>
                                     </td>
+                                    @if(@Auth::user()->roles->role_name === 'chef')     
                                     <td>
-
-                                  
                                         <div class="d-flex flex-column justify-content-center">
-                                             <img src="{{ asset('/storage/'.$r->image) }}" alt="test" height="50" width="50">
+                                            <img src="{{ asset('/storage/'.$r->image) }}" alt="test" height="50" width="50">
+                                        </div>
+                                    </td>
+                                    @endif
+
+                                    <td>
                                        
 
-                                        </div>
-                                    </td>
+                                       
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 text-sm">{{ $r->id}}</h6>
 
+                                        </div>
+
+                                      
+                                    </td>
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $r->order_id}}</h6>
+                                            <h6 class="mb-0 text-sm">{{ $r->table_id}}</h6>
 
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $r->table_number}}</h6>
-
-                                        </div>
-                                    </td>
-                                   <td>
-                                    @if(($r->payment_id == ''))
+                                        @if(($r->payment_id == ''))
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">offline</h6>
 
@@ -88,36 +92,57 @@
                                         </div>
                                         @endif
                                     </td>
-
-                                           <td>
-                                               
-                                               
-                                        <div class="d-flex flex-column justify-content-center">
-                                            
-                                          
-                                              <h6 class="mb-0 text-sm"> {{ ($r->item_name) }}</h6>
-                                            
-                                          
-                                          
-
-                                        </div>
-                                    </td>
-
-                                   
+                                    @if(@Auth::user()->roles->role_name === 'admin')
                                     <td>
-                                        <div class="d-flex flex-column justify-content-center">
-                                         
-                                                <select class="form-select custom-form-select" wire:change.prevent="change({{ $r->id}},{{$r->item_id }},$event.target.value,{{$r->order_id}})">
-                                                   <option class="form-control border border-2 p-2" value="0" {{ $r->status == 0 ? 'selected="selected"' : '' }}>pending</option>
-                                                   <option class="form-control border border-2 p-2" value ="1" {{ $r->status == 1 ? 'selected="selected"' : '' }}>In-progress</option>
-                                                   <option class="form-control border border-2 p-2" value="2" {{ $r->status == 2 ? 'selected="selected"' : '' }}>completed</option>
-                                                </select>
-                                         
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
+                                       <div class="d-flex flex-column justify-content-center">
                                        
 
+                                        @livewire('order-status', ['model' => $r, 'field' => 'payment_status'], key($r->id))
+
+                                        </div>
+                                    </td>
+
+                                    @endif
+
+                                    <td>
+                                    @if(@Auth::user()->roles->role_name === 'admin')
+                                        <div class="d-flex flex-column justify-content-center">
+                                            
+                                            @foreach(@$r->order_detail as $val)
+                                            <h6 class="mb-0 text-sm"> {{ @$val->item_name }}</h6>
+                                            @endforeach
+                                           
+                                        </div>
+                                        @else
+                                       <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 text-sm">{{ $r->item_name}}</h6>
+
+                                        </div>
+
+
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 text-sm"> {{ ($r->reminder_note) }}</h6>
+                                        </div>
+                                    </td>
+                                    @if(@Auth::user()->roles->role_name === 'chef')
+                                    <td>
+                                        <div class="d-flex flex-column justify-content-center">
+
+                                            <select class="form-select custom-form-select" wire:change.prevent="change({{ $r->id}},{{$r->item_id }},$event.target.value,{{$r->order_id}})">
+                                                <option class="form-control border border-2 p-2" value="0" {{ $r->status == 0 ? 'selected="selected"' : '' }}>pending</option>
+                                                <option class="form-control border border-2 p-2" value="1" {{ $r->status == 1 ? 'selected="selected"' : '' }}>In-progress
+                                                </option>
+                                                <option class="form-control border border-2 p-2" value="2" {{ $r->status == 2 ? 'selected="selected"' : '' }}>completed
+                                                </option>
+                                            </select>
+
+                                        </div>
+                                    </td>
+                                    @endif
+                                    <td class="align-middle">
                                         <button type="button" wire:click.prevent="delete({{ $r->id }})" class="btn btn-danger btn-link" data-original-title="" title="">
                                             <i class="material-icons">delete</i>
                                             <div class="ripple-container"></div>
@@ -127,15 +152,9 @@
                                 <?php $i++; ?>
                                 @endforeach
                             </tbody>
-                                        
-                                        
-                                
-                                   
-                                </table>
-                            </div>
-                    
-                        </div>
-
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

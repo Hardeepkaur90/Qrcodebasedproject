@@ -30,7 +30,7 @@
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                               
+
                             </div>
                         </nav>
                     </div>
@@ -63,37 +63,28 @@
                                 <thead>
                                     <tr>
                                         <th>S.No</th>
-
                                         <th>Item Name</th>
-
                                         <th>Image</th>
                                         <th>Table No</th>
                                         <th>Qty</th>
-
                                         <th>Order Status</th>
-
                                         <th>Action</th>
-
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody >
                                     <?php $i = 1; ?>
                                     @foreach($orderdata as $data)
 
-                                    <tr>
+                                    <tr class="table-body-data">
                                         <td>{{$i}}</td>
+                                        <input type="hidden" value="{{$data->id}}" class="itemid">
                                         <td>{{$data->item_name}}</td>
-                                     
                                         @isset($data->item_details->image)
-
                                         <td><img src="{{ Storage::url($data->item_details->image) }}" alt="test" height="50" width="50" class="img-fluid"></td>
                                         @endisset
                                         @isset($data->image)
                                         <td><img src="{{ Storage::url($data->image) }}" alt="test" height="50" width="50" class="img-fluid"></td>
                                         @endisset
-                                      
-                                        
-                                       
                                         <td>{{$data->table_id}}</td>
                                         <td>{{$data->qty}}</td>
                                         @if($data->status == 0)
@@ -103,8 +94,14 @@
                                         @elseif($data->status == 2)
                                         <td>completed</td>
                                         @endif
-                                        <td><button class="btn btn-success">Complete</button></td>
-
+                                        <td>
+                                        @if($data->orderReceived==1)    
+                                        <button  class="btn btn-success completeorder">Completed</button>
+                                        @else
+                                        <button  class="btn btn-success completeorder">Complete</button>
+                                        @endif
+                                    
+                                    </td>
                                     </tr>
                                     <?php $i++; ?>
                                     @endforeach
@@ -205,6 +202,34 @@
             $('.nav-tabs li').removeClass('active');
             $('.nav-tabs li[data-active="' + hrefVal + '"]').addClass('active');
         }
+
+        $(document).ready(function(){
+            $(".completeorder").click(function(e){
+                e.preventDefault();
+                $(this).text("Completed");
+                var order_id = $(this).closest('.table-body-data').find('.itemid').val();
+                 $.ajax({
+                    type: 'POST',
+                    url: "{{ url('/complete-order')}}",
+                    data: {
+                    order_id: order_id,
+                    '_token': '{{csrf_token()}}'
+                },
+                success: function(result) {
+
+                  
+                    if(result[0] ==1){
+
+                    
+                       
+                        var order_id = $(this).closest('.table-body-data').find('.completeorder').html('Save');
+                    }
+                }
+                 });
+            });
+
+           
+        });
 
         $qty = '';
 
@@ -364,6 +389,8 @@
                 },
             });
         }
+
+     
     </script>
 
 </body>

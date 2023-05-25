@@ -8,10 +8,10 @@
 
     <div class="container-fluid">
         <div class="d-flex me-3 my-3 justify-content-between align-items-center">
-            <h5 class="font-weight-bolder mb-0 text-capitalize">Add Item</h5>
-            <a class="btn btn-primary mb-0" href="manageitem"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Manage
+            <h5 class="font-weight-bolder mb-0 text-capitalize"> <a class="btn btn-primary mb-0" href="manageitem"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Manage
                 Item
-            </a>
+            </a></h5>
+           
         </div>
     </div>
 

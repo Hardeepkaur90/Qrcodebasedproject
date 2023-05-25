@@ -15,8 +15,15 @@ class Manageitem extends Component
 
     public function render()
     {
-        $items = Items::where('vendor_id', Auth()->user()->id)->paginate(6);
-        return view('livewire.manageitem', compact('items'));
+       
+        if(Auth()->user()->id == 1){
+            $items = Items::paginate(10);
+            return view('livewire.manageitem', compact('items'));
+        }else{
+            $items = Items::where('vendor_id', Auth()->user()->id)->paginate(10);
+            return view('livewire.manageitem', compact('items'));
+        }
+      
     }
     public function deleteT($id)
     {
@@ -35,19 +42,17 @@ class Manageitem extends Component
         $this->delete_id = $id;
         $check = Addtocart::where('item_id', $this->delete_id)->first();
         if (isset($check)) {
-          
+
             session()->flash('message', 'item cant be deleted');
             $this->redirect('/manageitem');
-        }else{
-           
+        } else {
+
             $this->dispatchBrowserEvent('delete_model');
         }
-
-      
     }
 
     public function edit($id)
     {
-         $this->redirect('edititem/' . $id);
+        $this->redirect('edititem/' . $id);
     }
 }

@@ -10,4 +10,8 @@ class Items extends Model
     use HasFactory;
     protected $table ="items";
     protected $fillable =['title','image','vendor_id','type','slug','price','quentity','cooking','content','instructions','status','discount'];
+
+    public function  category(){
+        return $this->belongsTo('App\Models\Category','type','id');
+    }
 }

@@ -27,8 +27,11 @@
             <div class="row">
                 <div class="d-flex justify-content-between">
 
+                <div class="logo"><a href="JavaScript:void(0)"><img class="img-fluid" alt="" src="{{ url('storage/'.$vendorData[0]->brandlogo) }}" /></a>
+            <p>{{$vendorData[0]->brandname}}</p></div>
+                
 
-                    <div class="logo"><a href="JavaScript:void(0)"><img class="img-fluid" alt="" src="{{ url('/assets/images/logo.png')}}" /></a></div>
+                    <!-- <div class="logo"><a href="JavaScript:void(0)"><img class="img-fluid" alt="" src="{{ url('/assets/images/logo.png')}}" /></a></div> -->
                     <div class="navbar-menu" id="open-navbar1">
                         <nav class="navbar navbar-expand-lg navbar-light">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +42,7 @@
 
                                     <li class="nav-item">
 
-                                        <a class="nav-link position-relative" href="/my-cart/{{$id}}">
+                                        <a class="nav-link position-relative" href="/my-cart/{{Request()->v_id}}/{{Request()->id}}">
                                             <span><i class="fa fa-shopping-cart" aria-hidden="true"></i><span id="items-count" class="fc-count">{{$count}}</span></span>
                                         </a>
 
@@ -115,7 +118,7 @@
                                         <h4 title="Margherita "> {{$m->title}}</h4>
                                         <p>${{$m->price}}</p>
                                     </div>
-                                   
+
 
                                     <div class="pull-right">
                                         <form id="item_form_856766">
@@ -125,14 +128,15 @@
                                             <input type="hidden" id="selected_item_cost856766" value="200.00">
                                         </form>
                                         <input type="hidden" class="menu_id" value="{{$m->id}}">
+
+
                                         @if(in_array($m->id, $mycart))
-                                   
-                                        <a onclick="addtocart('{{$m->id}}')" class="btn btn-sm btn-round addtocartc btn-warning card-btn">Add to cart
+
+                                        <a onclick="addtocart('{{$m->id}}')" class="btn  btn-sm btn-round  added-cart">Add to cart
                                         </a>
                                         @else
-                                      
-                                        <a onclick="addtocart('{{$m->id}}')" id=
-                                        '{{$m->id}}' class="btn btn-sm btn-round addtocartc not-in btn-primary card-btn">Add to cart
+
+                                        <a onclick="addtocart('{{$m->id}}')" id='{{$m->id}}' class="btn btn-sm btn-round addtocartc not-in btn-primary card-btn">Add to cart
                                         </a>
 
                                         @endif
@@ -274,6 +278,29 @@
             $('.nav-tabs li[data-active="' + hrefVal + '"]').addClass('active');
         }
 
+        window.onload = function() {
+            Livewire.on('refreshCharts', ($data) => {
+                var ctx = document.getElementById('pieChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: $data,
+                            backgroundColor: ['#7e22ce', '#fecaca'],
+                            label: 'Post',
+                        }, ],
+                        labels: ['Published', 'Reviewing'],
+                    },
+                    options: {
+                        responsive: true,
+                        cutoutPercentage: 50,
+                        legend: {
+                            display: false,
+                        },
+                    },
+                });
+            });
+        }
 
 
         $(document).ready(function() {
@@ -282,8 +309,16 @@
 
             function fetch_items_list(query = '') {
 
+
                 var url = window.location.href;
-                var id = url.split("/").pop();
+                let paramString = url.split('/');
+
+                var v_id1 = paramString[4];
+                var id1 = paramString[5];
+
+                var v_id = v_id1.split("=");
+                var id = id1.split("=");
+
                 $.ajax({
 
                     url: "{{ route('search-item') }}",
@@ -291,8 +326,8 @@
                     data: {
                         "_token": "{{ csrf_token() }}",
                         query: query,
-                        id: id,
-                        // catid:null,
+                        id: id[1],
+                        v_id: v_id[1],
 
                     },
                     dataType: 'json',
@@ -311,88 +346,104 @@
             $(document).on('keyup', '#search_item', function() {
 
                 var query = $(this).val();
+                console.log("value", query);
                 fetch_items_list(query);
 
             });
+
+            $(document).on('click', '.card-btn', function(e) {
+                e.preventDefault();
+                $(this).removeClass('card-btn');
+                 $(this).addClass('added-cart');
+
+                });
+
         });
 
-        function addtocart($id) { 
-            var url = window.location.href;
-            var tablenumber = url.split("/").pop();
+        function addtocart($id) {
+           var url = window.location.href;
+            let paramString = url.split('/');
+            console.log(paramString[4]);
+
+
+            var v_id1 = paramString[4];
+            var id1 = paramString[5];
+
+            var v_id = v_id1.split("=");
+            var id = id1.split("=");
+
+
             $.ajax({
                 type: 'POST',
                 url: "{{ url('add-to-cart')}}",
                 data: {
-                    table_id: tablenumber,
+                    table_id: id[1],
                     item_id: $id,
+                    v_id: v_id[1],
                     '_token': '{{csrf_token()}}'
                 },
                 success: function(result) {
 
-                    console.log("result.count", result.count);
-                    if (result.success == 'success') {
-
-
-                        Swal.fire({
-                            text: "Item added sucessfully",
-                            icon: 'success',
-
-                        })
-                    }
-                    // $(this).closest('.menu-items').addClass('button-green');
-                 console.log("checking ");
-
-                //  if(inArray(val, result.mycart)  ){
-
-                //  }else{
-
-                //  }
-                //    $(this).closest('.menu-items').find('.addtocartc').addClass('buttongreen');
-
+                    console.log("result.count", result);
+                    $('#alldata').hide();
+                    $('#filterdata').show();
+                    $('#filterdata').html(result.menudata);
                     $('#items-count').text(result.count);
-                    // document.getElementById("items-count").text = result.count;
-                    // window.location.reload();
+
                 },
             });
         }
 
         function sort(catid) {
 
+       
             var url = window.location.href;
-            var id = url.split("/").pop();
-            console.log("table id", id);
-            console.log("category id", catid);
+            let paramString = url.split('/');
+            console.log(paramString[4]);
+
+
+            var v_id = paramString[4];
+            var id = paramString[5];
+
+      
+
+             var urlt = 'http://127.0.0.1:8000/dispalymenu/' + v_id + '/' + id + '/' +catid;
+
+            console.log("url", urlt);
+
             $.ajax({
                 type: 'get',
-                url: "{{ route('main-menu') }}" + '/' + id + '/' + catid,
-
+                url: urlt,
                 success: function(result) {
                     $('.tab-content-search').html('');
                     console.log("result", result);
 
                     $('.tab-content').hide();
                     $('.tab-content-search').show();
-
-
-
                     if (result.menudata.length > 0) {
+
                         for (let i = 0; i < result.menudata.length; i++) {
-                            $('.tab-content-search').append(' <div class="col-lg-3 col-md-4 col-sm-6">  <div class="cs-card mb-5 cs-product-card"> <div class="card-image"><img src="http://127.0.0.1:8000/storage/' + result.menudata[i].image + '" class="img-fluid" height="250" alt="test"><div class="pull-left"> <h4>' + result.menudata[i].title + '</h4><p>$' + result.menudata[i].price + '</p></div> <div class="pull-right"><a class="btn btn-sm result btn-round btn-primary card-btn" onclick="addtocart(' + result.menudata[i].title + ')">Add to cart</a></div></div></div></div>');
-
-
-
+                        var id =String(result.menudata[i].id);
+                            
+                            if(result.addtocart.includes(id)){
+                               
+                                $('.tab-content-search').append('<div class="col-lg-3 col-md-4 col-sm-6">  <div class="cs-card mb-5 cs-product-card"> <div class="card-image"><img src="http://127.0.0.1:8000/storage/' + result.menudata[i].image + '" class="img-fluid" height="250" alt="test"><div class="cs-card-content clearfix"><div class="pull-left"> <h4>' + result.menudata[i].title + '</h4><p>$' + result.menudata[i].price + '</p></div> <div class="pull-right"><a class="btn  btn-sm btn-round  added-cart"  onclick="addtocart(' + result.menudata[i].id + ')">Add to cart</a></div></div></div></div>');
+                             }else{
+                               
+                                $('.tab-content-search').append('<div class="col-lg-3 col-md-4 col-sm-6">  <div class="cs-card mb-5 cs-product-card"> <div class="card-image"><img src="http://127.0.0.1:8000/storage/' + result.menudata[i].image + '" class="img-fluid" height="250" alt="test"><div class="cs-card-content clearfix"><div class="pull-left"> <h4>' + result.menudata[i].title + '</h4><p>$' + result.menudata[i].price + '</p></div> <div class="pull-right"><a class="btn btn-sm  btn-round  card-btn " id='+ result.menudata[i].id +' onclick="addtocart(' + result.menudata[i].id + ')">Add to cart</a></div></div></div></div>');
+                             }
+                          
                         }
+                       
                     } else {
                         $('.tab-content-search').append('No Data fount')
                     }
 
                 }
-            })
+            });
         }
 
-        $("#search_item_in").change(function() {
-            console.log("yes");
-        });
+
 
         function search() {
 
@@ -407,7 +458,7 @@
 
 
                 }
-            })
+            });
         }
     </script>
 

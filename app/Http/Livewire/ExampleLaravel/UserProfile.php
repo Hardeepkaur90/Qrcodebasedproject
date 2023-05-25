@@ -19,6 +19,8 @@ class UserProfile extends Component
     public $location;
     public $image;
     public $state;
+    public $brandname;
+    public $brandlogo;
 
     protected function rules()
     {
@@ -28,7 +30,9 @@ class UserProfile extends Component
             'phone' => 'required|max:10',
             'profile' => 'image|max:1024',
             'about' => 'required:max:150',
-            'location' => 'required'
+            'location' => 'required',
+            'brandname' => 'required',
+            'brandlogo' => 'required'
         ];
     }
 
@@ -41,6 +45,8 @@ class UserProfile extends Component
         $this->phone = $this->user->phone;
         $this->about = $this->user->about;
         $this->location = $this->user->location;
+        $this->brandname = $this->user->brandname;
+        $this->brandlogo = $this->user->brandlogo;
         $this->state = '';
     }
 
@@ -53,6 +59,8 @@ class UserProfile extends Component
         $data['phone'] =  $this->phone;
         $data['about'] =  $this->about;
         $data['location'] =  $this->location;
+        $data['brandname'] =  $this->brandname;
+        
 
        
         if ($this->profile != $this->user->profile) {
@@ -60,6 +68,13 @@ class UserProfile extends Component
                 
         $data['profile'] = $this->image;
         }
+        if ($this->brandlogo != $this->user->brandlogo) {
+            $this->brandlogo = $this->brandlogo->store('brandlogo', 'public');
+                
+            $data['brandlogo'] =  $this->brandlogo;
+        }
+
+        
    
         $data = User::where('id', $this->user->id)->update($data);
         return back()->withStatus('Profile successfully updated.');

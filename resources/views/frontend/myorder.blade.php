@@ -62,7 +62,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12">
-                    <table width="100%" cellspacing="0" cellpadding="0" class="cart-table">
+                    <table width="100%" cellspacing="0" cellpadding="0" id="tbody" class="cart-table">
 
                         @foreach($cart as $c)
                         <tr id="tr_{{$c->itemDetail->id}}" class="cartpage">
@@ -71,11 +71,11 @@
                                 <div class="product-top">
                                     <div class="product-name"><a href="#">{{$c->itemDetail->title}}</a></div>
                                     <div class="product-price"><span class="amount">
-                                        <bdi id="total_ammount_{{$c->id}}">
-                                            <span class="woocommerce-Price-currencySymbol">$</span>{{$c->itemDetail->price * $c->qty}}
-                                        </bdi>
-                                    </span>
-                                </div>
+                                            <bdi id="total_ammount_{{$c->id}}">
+                                                <span class="woocommerce-Price-currencySymbol">$</span>{{$c->itemDetail->price * $c->qty}}
+                                            </bdi>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="product-bottom">
                                     <div class="product-qty">
@@ -88,14 +88,6 @@
                                                 <input type="number" class="input-text qty text quentyty-in" value="{{ $c->qty }}">
 
                                                 <input class="quantity-btn increament_btn chagequentity" type="button" value="+">
-
-                                                <!-- <input class="quantity-btn decreament-btn chagequentity" type="button" id="dec_{{$c->itemDetail->id}}" onclick="getvalue1('{{$c->itemDetail->id}}')"qty="{{ $c->qty }}" value="-">
-
-                                                <input type="number" id="qty_{{$c->itemDetail->id}}" class="input-text qty text quentyty-in" value="{{ $c->qty }}" title="Qty" size="4" min="0" max="" step="1" placeholder="" inputmode="numeric" autocomplete="off">
-
-                                                <input class="quantity-btn increment-btn chagequentity" type="button" id="inc_{{$c->itemDetail->id}}" onclick="getvalue('{{$c->itemDetail->id}}')" qty="{{ $c->qty }}" value="+"> -->
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -133,37 +125,58 @@
                         </table>
                     </div>
 
+                    <div class="cart-box mt-2">
+                        <table width="100%" cellspacing="0" cellpadding="0" class="side-cart">
+                            <tr>
+
+                                Special Note
+
+                            </tr>
+
+                            <tr>
+                                <textarea name="note" id="note" style="margin-top:5px" cols="30" rows="10"></textarea>
+                            </tr>
+                        </table>
+                    </div>
+
+                    @if($totalprice !== null )
                     <div id="paypal-button-container">
 
-                    <button class="checkout-button" id="placeorder" type="submit">Place Order</button>
-                    <div id="payment_options">
-                         
-                    <div>
-                    <form action="{{url('charge')}}" method="post">
+                        <button class="checkout-button" id="placeorder" type="submit">Place Order</button>
+                        <div id="payment_options">
 
-                        {{ csrf_field() }}
-                        <input type="hidden" name="table_id"  value="{{request()->id}}">
-                        <input type="hidden" name="value" value="{{ $totalprice }}">
-                        <button class="checkout-button" id="placeorder" type="submit">Pay Online</button>
-                       
-                     </form>
-                    </div>
-                    <div>
-                    <form action="{{url('paycash')}}" method="post">
+                            <div>
 
-                                {{ csrf_field() }}
-                                <input type="hidden" name="table_id"  value="{{request()->id}}">
-                                <input type="hidden" name="value" value="{{ $totalprice }}">
-                                <button class="checkout-button" id="placeorder" type="submit">Pay Cash</button>
+                                <form action="{{url('charge')}}" method="post">
 
-                    </form>
-                    </div>
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="table_id" value="{{request()->id}}">
+                                    <input type="hidden" name="value" value="{{ $totalprice }}">
+                                    <button class="checkout-button" id="placeorder" type="submit">Pay Online</button>
 
-                    </div>
-                       
+                                </form>
+                            </div>
+                            <div>
+                                <form action="{{url('paycash')}}" method="post">
 
-                       
-                            <!-- <input type="hidden" name="table_id"  value="{{request()->id}}">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" id="sendnote" name="sendnote" value="">
+                                    <input type="hidden" name="table_id" value="{{request()->id}}">
+                                    <input type="hidden" name="v_id" value="{{request()->v_id}}">
+                                    <input type="hidden" name="value" value="{{ $totalprice }}">
+                                    <button class="checkout-button" id="placeorder" type="submit">Pay Cash</button>
+
+                                </form>
+                            </div>
+
+
+                            @endif
+
+                        </div>
+
+
+
+                        <!-- <input type="hidden" name="table_id"  value="{{request()->id}}">
                             <input type="hidden" name="value" value="{{ $totalprice }}">
                             <button class="checkout-button" id="placeorder" type="submit">Place Order</button>
                             <div style="padding: 25px;"id="payment_options">
@@ -259,17 +272,23 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script>
         $(document).ready(function() {
-           
-         $('#payment_options').hide();
 
-         $('#placeorder').click(function(){
-            $('#payment_options').show();
-            $('#placeorder').hide();
-         })
+            $('#payment_options').hide();
 
-         $('#onlinepament').click(function(){
-             
-            $.ajax({
+            $('#placeorder').click(function() {
+                const message = document.getElementById('note').value;
+                const message1= document.getElementById('sendnote').value = message;
+                console.log("message",message);
+                console.log("message1",message1);
+                $('#payment_options').show();
+                $('#placeorder').hide();
+            })
+
+
+
+            $('#onlinepament').click(function() {
+
+                $.ajax({
                     type: 'POST',
                     url: "{{ url('/change-qty')}}",
                     data: {
@@ -286,19 +305,18 @@
                         alert(e.error);
                     },
                 });
-         })
+            })
 
-         $('#cashpayment').click(function(){
-            alert("cashpayment");
-         })
+            $('#cashpayment').click(function() {
+                alert("cashpayment");
+            })
 
-            $('.increament_btn').click(function(e) {
+            $(document).on('click', '.increament_btn', function(e) {
                 e.preventDefault();
+
+                console.log("increment");
                 var quentity = $(this).closest('.cartpage').find('.quentyty-in').val();
                 var cartid = $(this).closest('.cartpage').find('.cart_id').val();
-
-                // console.log("quentity===>", quentity);
-                // console.log("cartid==>", cartid);
                 if (quentity < 10) {
                     quentity++;
                     $(this).closest('.cartpage').find('.quentyty-in').val(quentity);
@@ -320,14 +338,14 @@
                         var data = JSON.stringify(result.obj);
                         var item_idold = JSON.stringify(result.item_id);
                         var tatalgrand = JSON.stringify(result.grand_total);
-                       
+
                         for (let i = 0; i < dd.length; i++) {
 
-                           
+
                             if (dd[i].id == result.item_id) {
-                                
+
                                 var idcus = 'qty_' + result.item_id
-                                var ptotal = '#total_ammount_'+result.item_id;
+                                var ptotal = '#total_ammount_' + result.item_id;
                                 $(ptotal).text("$" + dd[i].qty * dd[i].item_detail['price']);
                                 $('.grandTotal').text("$" + tatalgrand);
                                 $('#inc_' + result.item_id).attr('qty', dd[i].qty);
@@ -340,12 +358,12 @@
                         alert(e.error);
                     },
                 });
-
-
             })
 
-            $('.decrement-btn').click(function(e) {
+            $(document).on('click', '.decrement-btn', function(e) {
                 e.preventDefault();
+
+                console.log("decrement");
                 var quentity = $(this).closest('.cartpage').find('.quentyty-in').val();
                 var cartid = $(this).closest('.cartpage').find('.cart_id').val();
                 if (quentity > 1) {
@@ -353,15 +371,15 @@
                     $(this).closest('.cartpage').find('.quentyty-in').val(quentity);
                 }
                 var url = window.location.href;
-                  if (quentity < 1) {
-                      Swal.fire({
+                if (quentity < 1) {
+                    Swal.fire({
                         text: "qty can't be -ve number",
                         icon: 'warning',
-                     });
-                 return;
+                    });
+                    return;
                 }
-                 var tablenumber = url.split("/").pop();
-                    $.ajax({
+                var tablenumber = url.split("/").pop();
+                $.ajax({
                     type: 'POST',
                     url: "{{ url('/change-qty')}}",
                     data: {
@@ -376,16 +394,16 @@
                         var data = JSON.stringify(result.obj);
                         var item_idold = JSON.stringify(result.item_id);
                         var tatalgrand = JSON.stringify(result.grand_total);
-              
+
                         for (let i = 0; i < dd.length; i++) {
                             console.log(result);
                             if (dd[i].id == result.item_id) {
-                             var ptotal = '#total_ammount_'+result.item_id;
-                             $(ptotal).text("$" + dd[i].qty * dd[i].item_detail['price']);
-                             $('.grandTotal').text("$" + tatalgrand);
-                           }
+                                var ptotal = '#total_ammount_' + result.item_id;
+                                $(ptotal).text("$" + dd[i].qty * dd[i].item_detail['price']);
+                                $('.grandTotal').text("$" + tatalgrand);
+                            }
                         }
-                       },
+                    },
                     error: function(e) {
                         alert(e.error);
                     },
@@ -395,7 +413,7 @@
             })
         })
 
-     function toggleTab(e) {
+        function toggleTab(e) {
             var hrefVal = $(e).attr('href');
             $('.nav-tabs li').removeClass('active');
             $('.nav-tabs li[data-active="' + hrefVal + '"]').addClass('active');
@@ -404,8 +422,11 @@
         function homefun() {
 
             var url = window.location.href;
-            var tablenumber = url.split("/").pop();
-            url = 'http://127.0.0.1:8000/dispalymenu/' + tablenumber;
+            let paramString = url.split('/');
+            console.log(paramString[4]);
+            var v_id = paramString[4];
+            var tablenumber = paramString[5];
+            url = 'http://127.0.0.1:8000/dispalymenu/' + v_id + '/' + tablenumber;
             console.log("url", url);
             window.location = url
         }
@@ -413,28 +434,45 @@
         function removeitem($id) {
 
 
+          
             var url = window.location.href;
-            var tablenumber = url.split("/").pop();
-            console.log("table id==>", tablenumber);
-            console.log("item id===>", $id);
+            let paramString = url.split('/');
+            console.log(paramString[4]);
+
+
+            var v_id1 = paramString[4];
+            var id1 = paramString[5];
+
+            var v_id = v_id1.split("=");
+            var id = id1.split("=");
+
+
+
             $.ajax({
                 type: 'POST',
                 url: "{{ url('/remove-item')}}",
                 data: {
-                    table_id: tablenumber,
+                    table_id: id[1],
                     item_id: $id,
+                    v_id: v_id[1],
 
                     '_token': '{{csrf_token()}}'
                 },
                 success: function(result) {
-                    Swal.fire({
-                        text: result.success,
-                        icon: 'success',
-                    });
+                  console.log(result);
+                   console.log(result.cart.length);  
 
+                    if (result.cart.length >= 0) {
 
-                    url = 'http://127.0.0.1:8000/my-cart/' + tablenumber;
-                    window.location = url
+                        $('.cart-table').html("");
+                        for (let i = 0; i < result.cart.length; i++) {
+                         
+                            $('.cart-table').append('<tr "class="cartpage"><td class="product-thumbnail"><a href="#"><img src="http://127.0.0.1:8000/storage/' + result.cart[i].item_detail.image + '" class="img-fluid" height="250" alt="test"></a></td><td class="product-content"><div class="product-top"><div class="product-name"><a href="#">' + result.cart[i].item_detail.title + '</a></div><div class="product-price"><span class="amount"><bdi id="total_ammount_' + result.cart[i].id + '"><span class="woocommerce-Price-currencySymbol">$</span>'+result.cart[i].item_detail.price *  result.cart[i].qty+'</bdi></span></div> </div><div class="product-bottom"> <div class="product-qty"><div class="cart-item-qty" data-nonce="dcefd462dc"><div class="quantity"><input type="hidden" class="cart_id" value="' + result.cart[i].id  + '"> <input class="quantity-btn decrement-btn chagequentity" type="button" value="-"> <input type="number" class="input-text qty text quentyty-in" value="' + result.cart[i].qty + '">  <input class="quantity-btn increament_btn chagequentity" type="button" value="+"></div> </div></div> <div class="product-remove"><a onclick="removeitem(' + result.cart[i].item_detail.id + ')" class="remove"><span class="svg-icon "><svg aria-hidden="true" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span><span class="name">Remove<span></a></div></div></td></tr>');
+                        }
+                       } else {
+                        $('.tab-content-search').html('No Data left')
+                    }
+
                 },
             });
         }

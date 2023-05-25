@@ -54,12 +54,16 @@ use GuzzleHttp\Middleware;
 |
 */
 
-Route::get('/dispalymenu/{id?}/{catid?}', [menuController::class,'index'])->name('main-menu');
+Route::get('/dispalymenu/{v_id}/{id}/{catid?}', [menuController::class,'index'])->name('main-menu');
 Route::post('/add-to-cart', [menuController::class,'addtocart']);
-Route::get('my-cart/{id}', [menuController::class,'mycart']);
-Route::post('/remove-item',[menuController::class,'removeitem']);
+Route::get('my-cart/{v_id?}/{id}', [menuController::class,'mycart']);
+Route::post('/remove-item',[menuController::class,'removeitem'])->name('delete');
 Route::post('/change-qty',[menuController::class,'changeqty']);
 Route::post('search',[menuController::class,'searchinAdd'])->name('search');
+
+
+
+Route::post('complete-order',[menuController::class,'completeorder'])->name('complete-order');
 
 //paypal routes
 // Route::get('/payment',[paymentController::class,'index']);

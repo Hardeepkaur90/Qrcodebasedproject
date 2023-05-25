@@ -29,6 +29,7 @@
             </li>
 
             @if(@Auth::user()->roles->role_name === 'superadmin')
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-white " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class=" text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -48,16 +49,11 @@
                                 <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
                             </div>
                             <span class="nav-link-text ms-1">Manage Role</span>
-                        </a></li>
-
+                        </a>
+                    </li>
                 </ul>
             </li>
-
-
-
             <!-- user Management -->
-
-
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-white " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -103,10 +99,49 @@
                                 <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
                             </div>
                             <span class="nav-link-text ms-1">Manage Category</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class=" text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1rem;" class="fas fa-lg fa fa-sitemap ps-2 pe-2 text-center"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Menu Management</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    <li class="nav-item"> <a class="nav-link dropdown-item  {{ Route::currentRouteName() == 'manageitem' ? ' active bg-gradient-primary' : '' }} " href="{{ route('manageitem') }}">
+                            <div class="text-center me-2 d-flex align-items-center justify-content-center">
+                                <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Manage Menu</span>
                         </a></li>
 
                 </ul>
             </li>
+            <!-- Menu management start -->
+            <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class=" text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1rem;" class="fas fa-lg fa fa-user ps-2 pe-2 text-center"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Menu Management</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li class="nav-item"> <a class="nav-link dropdown-item  {{ Route::currentRouteName() == 'addcategory' ? ' active bg-gradient-primary' : '' }} " href="{{ route('addcategory') }}">
+                            <div class="text-center me-2 d-flex align-items-center justify-content-center">
+                                <i style="font-size: 1rem;" class="fas fa-lg fa-plus-square ps-2 pe-2 text-center"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Manage Menu</span>
+                        </a></li>
+                 
+
+                </ul>
+            </li> -->
+            <!-- Menu management end -->
+
 
             <!-- type of food end -->
             @elseif(@Auth::user()->roles->role_name === 'chef' )
@@ -123,17 +158,13 @@
                                 <i style="font-size: 1rem;" class="fas fa-lg fa-plus-square ps-2 pe-2 text-center"></i>
                             </div>
                             <span class="nav-link-text ms-1">Manage Order</span>
-                        </a></li>
-
+                        </a>
+                    </li>
                 </ul>
             </li>
             @elseif(@Auth::user()->roles->role_name === 'admin' )
             <!-- End of Role User -->
-
-
             <!-- item Management -->
-
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-white " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class=" text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -153,19 +184,12 @@
                                 <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
                             </div>
                             <span class="nav-link-text ms-1">Manage Item</span>
-                        </a></li>
-
+                        </a>
+                    </li>
                 </ul>
             </li>
-
-
-
-
-
             <!-- End of item  -->
-
             <!-- table Management -->
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-white " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class=" text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -185,15 +209,11 @@
                                 <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
                             </div>
                             <span class="nav-link-text ms-1">Manage Table</span>
-                        </a></li>
-
+                        </a>
+                    </li>
                 </ul>
             </li>
             <!-- End of table  -->
-
-
-
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-white " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class=" text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -213,8 +233,8 @@
                                 <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
                             </div>
                             <span class="nav-link-text ms-1">Add Chef</span>
-                        </a></li>
-
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
@@ -230,8 +250,8 @@
                                 <i style="font-size: 1rem;" class="fas fa-lg fa-plus-square ps-2 pe-2 text-center"></i>
                             </div>
                             <span class="nav-link-text ms-1">Manage Order</span>
-                        </a></li>
-
+                        </a>
+                    </li>
                 </ul>
             </li>
             <!-- end chef management -->

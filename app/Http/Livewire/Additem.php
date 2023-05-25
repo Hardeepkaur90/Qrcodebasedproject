@@ -80,7 +80,7 @@ class Additem extends Component
     public function render()
     {
 
-        $category = Category::get();
+        $category = Category::where('status',1)->get();
         return view('livewire.additem',compact('category'));
     }
 }

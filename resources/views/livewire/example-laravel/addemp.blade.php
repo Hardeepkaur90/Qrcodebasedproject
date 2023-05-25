@@ -74,6 +74,24 @@
                                 </div>
                             </div>
 
+                             
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Browse</label>
+                                    
+                                        <input type="file" class="form-control border border-2 p-2"  wire:model="profile" required>
+                                    
+                                    @error('profile') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                            <label class="form-label">Password</label>
+                                            <input type="password" class="form-control border border-2 p-2" wire:model="password" required>
+                                    </div>
+                                        @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
